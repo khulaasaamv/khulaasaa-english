@@ -1,4 +1,4 @@
-﻿import FooterPolicyModal from "./FooterPolicyModal";
+import FooterPolicyModal from "./FooterPolicyModal";
 export default function SiteFooter() {
   return (
     <footer className="site-footer simple-footer">
@@ -11,27 +11,27 @@ export default function SiteFooter() {
 
           <div className="footer-social-row">
   <a href="https://x.com/khulaasaanews" aria-label="X" target="_blank" rel="noopener noreferrer" title="X">
-    <img src="/icons/Twitter.svg" alt="X" />
+    <img src="https://khulaasaa-english.vercel.app/icons/Twitter.svg" alt="X" />
   </a>
 
   <a href="https://facebook.com/khulaasaa" aria-label="Facebook" target="_blank" rel="noopener noreferrer" title="Facebook">
-    <img src="/icons/Facebook.svg" alt="Facebook" />
+    <img src="https://khulaasaa-english.vercel.app/icons/Facebook.svg" alt="Facebook" />
   </a>
 
   <a href="https://instagram.com/khulaasaanews" aria-label="Instagram" target="_blank" rel="noopener noreferrer" title="Instagram">
-    <img src="/icons/Instagram.svg" alt="Instagram" />
+    <img src="https://khulaasaa-english.vercel.app/icons/Instagram.svg" alt="Instagram" />
   </a>
 
   <a href="https://youtube.com/@khulaasaa" aria-label="YouTube" target="_blank" rel="noopener noreferrer" title="YouTube">
-    <img src="/icons/Youtube.svg" alt="YouTube" />
+    <img src="https://khulaasaa-english.vercel.app/icons/Youtube.svg" alt="YouTube" />
   </a>
 
   <a href="https://tiktok.com/@khulaasaa" aria-label="TikTok" target="_blank" rel="noopener noreferrer" title="TikTok">
-    <img src="/icons/Tiktok.svg" alt="TikTok" />
+    <img src="https://khulaasaa-english.vercel.app/icons/Tiktok.svg" alt="TikTok" />
   </a>
 
   <a href="https://t.me/khulaasaanews" aria-label="Telegram" target="_blank" rel="noopener noreferrer" title="Telegram">
-    <img src="/icons/Telegram.svg" alt="Telegram" />
+    <img src="https://khulaasaa-english.vercel.app/icons/Telegram.svg" alt="Telegram" />
   </a>
 </div>
         </section>
@@ -77,6 +77,8 @@ export default function SiteFooter() {
     </footer>
   );
 }
+
+
 
 
 

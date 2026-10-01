@@ -1,4 +1,4 @@
-﻿import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import { categories, stories } from "../../../data/stories";
 import SiteFooter from "../../components/SiteFooter";
 
@@ -90,7 +90,7 @@ export default async function CategoryPage({ params }) {
               aria-label="Khulaasaa English home"
             >
               <img
-                src="/logo.png"
+                src="https://khulaasaa-english.vercel.app/logo.png"
                 alt="Khulaasaa"
                 className="category-brand-logo"
               />

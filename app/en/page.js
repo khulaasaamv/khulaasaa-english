@@ -1,4 +1,4 @@
-﻿import SiteFooter from "../components/SiteFooter";
+import SiteFooter from "../components/SiteFooter";
 import MaldivesDateTime from "../components/MaldivesDateTime";
 import { categories, gallery } from "../../data/stories";
 import { getEnglishArticles } from "../../lib/englishApi";
@@ -88,7 +88,7 @@ export default async function EnglishHome() {
               aria-label="Khulaasaa English home"
             >
               <img
-                src="/logo.png"
+                src="https://khulaasaa-english.vercel.app/logo.png"
                 alt="Khulaasaa"
                 className="khulaasaa-logo"
               />
@@ -302,6 +302,8 @@ export default async function EnglishHome() {
     </>
   );
 }
+
+
 
 
 

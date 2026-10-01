@@ -1,4 +1,4 @@
-﻿import SiteFooter from "../../components/SiteFooter";
+import SiteFooter from "../../components/SiteFooter";
 
 export default function EditorialPolicyPage() {
   return (
@@ -35,3 +35,5 @@ export default function EditorialPolicyPage() {
     </>
   );
 }
+
+

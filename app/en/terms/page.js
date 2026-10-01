@@ -1,4 +1,4 @@
-﻿import SiteFooter from "../../components/SiteFooter";
+import SiteFooter from "../../components/SiteFooter";
 
 export default function TermsPage() {
   return (
@@ -36,3 +36,5 @@ export default function TermsPage() {
     </>
   );
 }
+
+

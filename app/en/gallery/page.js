@@ -1,4 +1,4 @@
-﻿import { gallery } from "../../../data/stories";
+import { gallery } from "../../../data/stories";
 
 function GalleryVisual({ item, featured = false }) {
   if (item.image) {
@@ -35,7 +35,7 @@ export default function GalleryPage() {
       aria-label="Khulaasaa English home"
     >
       <img
-        src="/logo.png"
+        src="https://khulaasaa-english.vercel.app/logo.png"
         alt="Khulaasaa"
         className="category-brand-logo"
       />
@@ -95,4 +95,6 @@ export default function GalleryPage() {
     </main>
   );
 }
+
+
 

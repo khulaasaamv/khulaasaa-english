@@ -1,4 +1,4 @@
-﻿import SiteFooter from "../../components/SiteFooter";
+import SiteFooter from "../../components/SiteFooter";
 
 export default function AdvertisePage() {
   return (
@@ -41,3 +41,5 @@ export default function AdvertisePage() {
     </>
   );
 }
+
+

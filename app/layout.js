@@ -1,4 +1,4 @@
-﻿import "./globals.css";
+import "./globals.css";
 
 export const metadata = {
   title: "Khulaasaa English",
@@ -13,3 +13,5 @@ export default function EnglishLayout({ children }) {
     </html>
   );
 }
+
+

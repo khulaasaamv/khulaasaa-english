@@ -1,4 +1,4 @@
-﻿import SiteFooter from "../../components/SiteFooter";
+import SiteFooter from "../../components/SiteFooter";
 
 export default function AboutPage() {
   return (
@@ -44,3 +44,5 @@ export default function AboutPage() {
     </>
   );
 }
+
+

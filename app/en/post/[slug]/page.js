@@ -1,4 +1,4 @@
-﻿import { notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 import SiteFooter from "../../../components/SiteFooter";
 import ArticleReactions from "../../../components/ArticleReactions";
 import PublishedTime from "../../../components/PublishedTime";
@@ -97,7 +97,7 @@ export default async function ArticlePage({ params }) {
               aria-label="Khulaasaa English"
             >
               <img
-                src="/logo.png"
+                src="https://khulaasaa-english.vercel.app/logo.png"
                 alt="Khulaasaa"
                 className="article-logo"
               />

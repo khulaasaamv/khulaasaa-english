@@ -35,7 +35,7 @@ export default function EnglishHome() {
       <div className="utility-bar">
         <div className="container utility-inner">
           <span>Independent perspectives. Complete insight.</span>
-          <a href="https://www.khulaasaa.com/">Dhivehi edition ↗</a>
+          <a href="https://www.khulaasaa.com/">Dhivehi edition â†—</a>
         </div>
       </div>
 
@@ -58,7 +58,7 @@ export default function EnglishHome() {
             </nav>
 
             <details className="mobile-menu">
-              <summary>Menu <span aria-hidden="true">＋</span></summary>
+              <summary>Menu <span aria-hidden="true">ï¼‹</span></summary>
               <nav aria-label="Mobile navigation">
                 <a href="/en">Home</a>
                 {sections.map(([name, id]) => (
@@ -159,7 +159,7 @@ export default function EnglishHome() {
                 <h3>A closer look at {name.toLowerCase()}.</h3>
                 <p>Published English stories in this section will appear here.</p>
               </div>
-              <span className="topic-arrow" aria-hidden="true">↗</span>
+              <span className="topic-arrow" aria-hidden="true">â†—</span>
             </div>
           </section>
         ))}
@@ -174,11 +174,12 @@ export default function EnglishHome() {
             <p>Compact News. Complete Insight.</p>
           </div>
           <div className="footer-right">
-            <a href="https://www.khulaasaa.com/">Visit the Dhivehi edition ↗</a>
-            <span>© {new Date().getFullYear()} Khulaasaa</span>
+            <a href="https://www.khulaasaa.com/">Visit the Dhivehi edition â†—</a>
+            <span>Â© {new Date().getFullYear()} Khulaasaa</span>
           </div>
         </div>
       </footer>
     </>
   );
 }
+
