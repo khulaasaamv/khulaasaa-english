@@ -7,6 +7,55 @@ import {
   getEnglishArticles,
 } from "../../../../lib/englishApi";
 
+
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+
+  const story = await getEnglishArticle(slug);
+
+  if (!story) {
+    return {
+      title: "Khulaasaa English",
+    };
+  }
+
+  const image =
+    story.image ||
+    story.main_image ||
+    story.thumbnail ||
+    "https://khulaasaa-english.vercel.app/logo.png";
+
+  const url = `https://www.khulaasaa.com/en/post/${story.id}`;
+
+  return {
+    title: story.title,
+    description: story.summary || "Khulaasaa English",
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: story.title,
+      description: story.summary || "Khulaasaa English",
+      url,
+      siteName: "Khulaasaa English",
+      type: "article",
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: story.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: story.title,
+      description: story.summary || "Khulaasaa English",
+      images: [image],
+    },
+  };
+}
 function StoryVisual({ story }) {
   if (story.image) {
     return (

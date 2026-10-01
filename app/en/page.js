@@ -1,73 +1,58 @@
 import SiteFooter from "../components/SiteFooter";
 import MaldivesDateTime from "../components/MaldivesDateTime";
-import { categories, gallery } from "../../data/stories";
 import { getEnglishArticles } from "../../lib/englishApi";
 
-function StoryVisual({ story, lead = false }) {
-  if (story.image) {
-    return (
-      <img
-        src={story.image}
-        alt={story.title}
-        className={lead ? "lead-image" : "story-image"}
-      />
-    );
+const navItems = [
+  { name: "Home", href: "/en" },
+  { name: "National", href: "/en/national" },
+  { name: "Business", href: "/en/business" },
+  { name: "World", href: "/en/world" },
+  { name: "Sports", href: "/en/sports" },
+  { name: "Gallery", href: "/en/gallery" },
+];
+
+function articleHeadline(article) {
+  return article?.short_title || article?.title || "";
+}
+
+function articleImage(article) {
+  return (
+    article?.image ||
+    article?.main_image ||
+    article?.thumbnail ||
+    null
+  );
+}
+
+function articleCategory(article) {
+  return article?.categories?.[0]?.name || "News";
+}
+
+function timeAgo(value) {
+  if (!value) return "";
+
+  const published = new Date(value);
+  const diffMs = Date.now() - published.getTime();
+  const minutes = Math.max(0, Math.floor(diffMs / 60000));
+
+  if (minutes < 1) return "Just now";
+  if (minutes < 60) return `${minutes} min${minutes === 1 ? "" : "s"} ago`;
+
+  const hours = Math.floor(minutes / 60);
+
+  if (hours < 24) {
+    return `${hours} hr${hours === 1 ? "" : "s"} ago`;
   }
 
-  return (
-    <div className={`image-placeholder ${lead ? "lead-image" : ""}`}>
-      <span className="image-monogram">K.</span>
-      <span className="image-caption">{story.category}</span>
-    </div>
-  );
+  return new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Indian/Maldives",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(published);
 }
 
-function StoryCard({ story }) {
-  return (
-    <article className="story-card">
-      <StoryVisual story={story} />
-
-      <div className="story-copy">
-        <span className="eyebrow">{story.category}</span>
-        <h3><a href={`/en/post/${story.slug}`}>{story.title}</a></h3>
-        <p className="story-meta">{story.time}</p>
-      </div>
-    </article>
-  );
-}
-
-export default async function EnglishHome() {
-  const liveArticles = await getEnglishArticles(30);
-
-  const stories = liveArticles.map((article) => {
-    const categoryName =
-      article.categories?.[0]?.name || "News";
-
-    return {
-      id: article.id,
-      slug: String(article.id),
-      category: categoryName,
-      categorySlug: categoryName
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, ""),
-      title: article.short_title || article.title,
-      summary: article.summary || "",
-      image: article.image || null,
-      href: `/en/post/${article.id}`,
-      publishedAt: article.published_at,
-      time: "Latest",
-      author: article.author || "Khulaasaa",
-      featured: Boolean(article.is_featured),
-      editorsChoice: Boolean(article.is_featured),
-    };
-  });
-  const leadStory = stories[0];
-  const supportingStories = stories.slice(1, 5);
-  const editorStories = stories.filter(
-    (story) => story.editorsChoice
-  );
-
+function Header() {
   return (
     <>
       <div className="utility-bar">
@@ -89,18 +74,13 @@ export default async function EnglishHome() {
             >
               <img
                 src="https://khulaasaa-english.vercel.app/logo.png"
-                alt="Khulaasaa"
+                alt="Khulaasaa English"
                 className="khulaasaa-logo"
               />
-
-              <div className="brand-text-wrap">
-                <span className="brand">KHULAASAA</span>
-                <span className="edition-badge">ENGLISH</span>
-              </div>
             </a>
           </div>
 
-    <div className="masthead-right">
+          <div className="masthead-right">
             <p className="tagline">
               Compact News.
               <br />
@@ -112,20 +92,15 @@ export default async function EnglishHome() {
         <div className="nav-border">
           <div className="container navigation">
             <nav className="desktop-nav">
-              <a className="active" href="/en">
-                Home
-              </a>
-
-              {categories.map((category) => (
+              {navItems.map((item) => (
                 <a
-                  key={category.slug}
-                  href={`/en/${category.slug}`}
+                  key={item.href}
+                  href={item.href}
+                  className={item.name === "Home" ? "active" : ""}
                 >
-                  {category.name}
+                  {item.name}
                 </a>
               ))}
-
-              <a href="/en/gallery">Gallery</a>
             </nav>
 
             <details className="mobile-menu">
@@ -141,192 +116,177 @@ export default async function EnglishHome() {
                   <span>Switch to Dhivehi edition</span>
                   <span className="edition-arrow">↗</span>
                 </a>
-                <a href="/en">Home</a>
 
-                {categories.map((category) => (
-                  <a
-                    key={category.slug}
-                    href={`/en/${category.slug}`}
-                  >
-                    {category.name}
+                {navItems.map((item) => (
+                  <a key={item.href} href={item.href}>
+                    {item.name}
                   </a>
                 ))}
-
-                <a href="/en/gallery">Gallery</a>
               </nav>
             </details>
-
-            <a className="latest-link" href="#latest">
-              <span className="status-dot" />
-              Latest news
-            </a>
           </div>
         </div>
       </header>
+    </>
+  );
+}
 
-      <main className="container">
-        <div className="front-grid">
-          <section className="lead-section">
-            <article className="lead-story">
-  <div className="lead-headline">
-    <h2><a href={`/en/post/${leadStory.slug}`}>{leadStory.title}</a></h2>
-  </div>
+export default async function EnglishHome() {
+  const articles = await getEnglishArticles(30);
 
-  <StoryVisual story={leadStory} lead />
+  const lead = articles[0] || null;
+  const sideStories = articles.slice(1, 4);
+  const moreStories = articles.slice(4, 12);
 
-  <div className="lead-copy">
-    <p className="lead-summary">
-      {leadStory.summary}
-    </p>
+  return (
+    <>
+      <Header />
 
-    <div className="byline">
-      <span>
-        By <strong>Khulaasaa</strong>
-      </span>
+      <main className="kh-front-page">
+        <div className="container">
 
-      <span className="meta-divider" />
+          {lead ? (
+            <section className="kh-front-lead">
 
-      <span>{leadStory.time}</span>
-    </div>
-  </div>
-</article>
+              <div className="kh-front-lead-copy">
+                <a
+                  href={`/en/${articleCategory(lead).toLowerCase()}`}
+                  className="kh-front-kicker"
+                >
+                  {articleCategory(lead)}
+                </a>
 
-            <div className="supporting-grid">
-              {supportingStories.map((story) => (
-                <StoryCard key={story.id} story={story} />
-              ))}
-            </div>
-          </section>
+                <h1 className="kh-front-headline">
+                  <a href={`/en/post/${lead.id}`}>
+                    {articleHeadline(lead)}
+                  </a>
+                </h1>
 
-          <aside className="latest-panel" id="latest">
-            <div className="latest-heading">
-              <span className="status-dot" />
-              <h2>Latest updates</h2>
-            </div>
+                {lead.summary && (
+                  <p className="kh-front-summary">
+                    {lead.summary}
+                  </p>
+                )}
 
-            <p className="latest-intro">
-              The stories that matter, as they develop.
-            </p>
-
-            <ol className="latest-list">
-              {stories.slice(0, 5).map((story, index) => (
-                <li key={story.id}>
-                  <span className="update-number">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-
-                  <div>
-                    <span className="eyebrow">
-                      {story.category}
-                    </span>
-                    <h3><a href={`/en/post/${story.slug}`}>{story.title}</a></h3>
-                    <span className="story-meta">
-                      {story.time}
-                    </span>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </aside>
-        </div>
-
-        
-
-        <section className="home-gallery-section">
-          <div className="section-heading">
-            <div>
-              
-              <h2>
-                Gallery<span>.</span>
-              </h2>
-            </div>
-          </div>
-
-          <div className="home-gallery-grid">
-            {gallery.slice(0, 4).map((item, index) => (
-              <article
-                className={`home-gallery-card ${
-                  index === 0 ? "home-gallery-featured" : ""
-                }`}
-                key={item.id}
-              >
-                <div className="gallery-placeholder">
-                  <span className="gallery-k">K.</span>
-                  
-                </div>
-
-                <div className="home-gallery-overlay">
-                  
-                  <h3>{item.title}</h3>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="home-categories">
-          {categories.map((category, index) => {
-            const categoryStories = stories
-              .filter(
-                (story) =>
-                  story.categorySlug === category.slug
-              )
-              .slice(0, 3);
-
-            return (
-              <div
-                className="home-category-block"
-                key={category.slug}
-              >
-                <div className="section-heading">
-                  <h2>
-                    {category.name}<span>.</span>
-                  </h2>
-                </div>
-
-                <div className="home-category-grid">
-                  {categoryStories.map((story) => (
-                    <StoryCard
-                      story={story}
-                      key={story.id}
-                    />
-                  ))}
+                <div className="kh-front-time">
+                  {timeAgo(lead.published_at)}
                 </div>
               </div>
-            );
-          })}
-        </section>
+
+              <div className="kh-front-lead-media">
+                <a href={`/en/post/${lead.id}`}>
+                  {articleImage(lead) ? (
+                    <img
+                      src={articleImage(lead)}
+                      alt={articleHeadline(lead)}
+                    />
+                  ) : (
+                    <div className="kh-front-image-placeholder">
+                      K.
+                    </div>
+                  )}
+                </a>
+
+                {lead.caption && (
+                  <p className="kh-front-caption">
+                    {lead.caption}
+                  </p>
+                )}
+              </div>
+
+              <aside className="kh-front-side">
+                <div className="kh-front-side-heading">
+                  Latest updates
+                </div>
+
+                {sideStories.length > 0 ? (
+                  <div className="kh-front-side-list">
+                    {sideStories.map((story) => (
+                      <article
+                        key={story.id}
+                        className="kh-front-side-story"
+                      >
+                        <h2>
+                          <a href={`/en/post/${story.id}`}>
+                            {articleHeadline(story)}
+                          </a>
+                        </h2>
+
+                        <span>
+                          {timeAgo(story.published_at)}
+                        </span>
+                      </article>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="kh-front-empty">
+                    More updates coming soon.
+                  </p>
+                )}
+              </aside>
+
+            </section>
+          ) : (
+            <section className="kh-front-no-news">
+              <h1>Khulaasaa English</h1>
+              <p>No English articles are available yet.</p>
+            </section>
+          )}
+
+          {moreStories.length > 0 && (
+            <section className="kh-front-more">
+              <div className="kh-front-section-title">
+                <h2>More Top Stories</h2>
+              </div>
+
+              <div className="kh-front-more-grid">
+                {moreStories.map((story) => (
+                  <article
+                    className="kh-front-card"
+                    key={story.id}
+                  >
+                    <a
+                      href={`/en/post/${story.id}`}
+                      className="kh-front-card-image-link"
+                    >
+                      {articleImage(story) ? (
+                        <img
+                          src={articleImage(story)}
+                          alt={articleHeadline(story)}
+                          className="kh-front-card-image"
+                        />
+                      ) : (
+                        <div className="kh-front-card-placeholder">
+                          K.
+                        </div>
+                      )}
+                    </a>
+
+                    <div className="kh-front-card-content">
+                      <span className="kh-front-card-category">
+                        {articleCategory(story)}
+                      </span>
+
+                      <h3>
+                        <a href={`/en/post/${story.id}`}>
+                          {articleHeadline(story)}
+                        </a>
+                      </h3>
+
+                      <span className="kh-front-card-time">
+                        {timeAgo(story.published_at)}
+                      </span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+
+        </div>
       </main>
 
       <SiteFooter />
     </>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
