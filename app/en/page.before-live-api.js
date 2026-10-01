@@ -1,7 +1,6 @@
 ﻿import SiteFooter from "../components/SiteFooter";
 import MaldivesDateTime from "../components/MaldivesDateTime";
-import { categories, gallery } from "../../data/stories";
-import { getEnglishArticles } from "../../lib/englishApi";
+import { categories, stories, gallery } from "../../data/stories";
 
 function StoryVisual({ story, lead = false }) {
   if (story.image) {
@@ -36,32 +35,7 @@ function StoryCard({ story }) {
   );
 }
 
-export default async function EnglishHome() {
-  const liveArticles = await getEnglishArticles(30);
-
-  const stories = liveArticles.map((article) => {
-    const categoryName =
-      article.categories?.[0]?.name || "News";
-
-    return {
-      id: article.id,
-      slug: String(article.id),
-      category: categoryName,
-      categorySlug: categoryName
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, ""),
-      title: article.title,
-      summary: article.summary || "",
-      image: article.image || null,
-      href: `/en/post/${article.id}`,
-      publishedAt: article.published_at,
-      time: "Latest",
-      author: article.author || "Khulaasaa",
-      featured: Boolean(article.is_featured),
-      editorsChoice: Boolean(article.is_featured),
-    };
-  });
+export default function EnglishHome() {
   const leadStory = stories[0];
   const supportingStories = stories.slice(1, 5);
   const editorStories = stories.filter(
@@ -302,7 +276,6 @@ export default async function EnglishHome() {
     </>
   );
 }
-
 
 
 

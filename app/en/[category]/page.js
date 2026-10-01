@@ -1,5 +1,6 @@
 ﻿import { notFound } from "next/navigation";
 import { categories, stories } from "../../../data/stories";
+import SiteFooter from "../../components/SiteFooter";
 
 function StoryVisual({ story, large = false }) {
   if (story.image) {
@@ -51,165 +52,130 @@ export default async function CategoryPage({ params }) {
   return (
     <>
       <main className="category-page">
-      <div className="container">
-        <div className="category-brand-header">
-  <div className="category-brand-left">
-    <a
-      href="/en"
-      className="category-brand-link"
-      aria-label="Khulaasaa English home"
-    >
-      <img
-        src="/logo.png"
-        alt="Khulaasaa"
-        className="category-brand-logo"
-      />
-    </a>
-  </div>
+        <div className="container">
 
-  <a href="/en" className="category-back-link">
-    ← Home
-  </a>
-</div>
+          <div className="category-brand-header category-mobile-header">
+  <button
+    type="button"
+    className="mobile-search-button"
+    aria-label="Search"
+  >
+    <span aria-hidden="true">⌕</span>
+  </button>
 
-<header className="category-hero-header">
-  <div>
-    <span className="eyebrow">SECTION</span>
+            <details className="mobile-menu category-sections-menu">
+              <summary aria-label="Open sections"><span>＋</span></summary>
 
-    <h1>
-      {currentCategory.name}<span>.</span>
-    </h1>
-  </div>
+              <nav>
+                <a
+                  href="https://www.khulaasaa.com/"
+                  className="mobile-edition-switch"
+                >
+                  <span>Switch to Dhivehi edition</span>
+                  <span className="edition-arrow">↗</span>
+                </a>
 
-  <p>
-    Latest reporting, analysis and essential updates from
-    Khulaasaa English.
-  </p>
-</header>
+                <a href="/en">Home</a>
+                <a href="/en/national">National</a>
+                <a href="/en/business">Business</a>
+                <a href="/en/world">World</a>
+                <a href="/en/sports">Sports</a>
+                <a href="/en/gallery">Gallery</a>
+              </nav>
+            </details>
 
-        {lead && (
-          <section className="category-lead">
-            <StoryVisual story={lead} large />
+            <a
+              href="/en"
+              className="category-brand-link category-centered-logo"
+              aria-label="Khulaasaa English home"
+            >
+              <img
+                src="/logo.png"
+                alt="Khulaasaa"
+                className="category-brand-logo"
+              />
+            </a>
 
-            <div className="category-lead-copy">
-              <span className="eyebrow">{lead.category}</span>
-              <h2>{lead.title}</h2>
-              <p>{lead.summary}</p>
+          </div>
 
-              <div className="category-story-meta">
-                <span>Khulaasaa</span>
-                <span>{lead.time}</span>
-              </div>
+          <header className="category-hero-header">
+            <div>
+              <span className="eyebrow">SECTION</span>
+
+              <h1>
+                {currentCategory.name}<span>.</span>
+              </h1>
             </div>
-          </section>
-        )}
 
-        <section className="category-story-grid">
-          {remaining.map((story) => (
-            <article className="category-story-card" key={story.id}>
-              <StoryVisual story={story} />
+            <p>
+              Latest reporting, analysis and essential updates from
+              Khulaasaa English.
+            </p>
+          </header>
 
-              <div>
-                <span className="eyebrow">{story.category}</span>
-                <h2>{story.title}</h2>
-                <p>{story.summary}</p>
-                <span className="story-meta">{story.time}</span>
+          {lead && (
+            <section className="category-lead">
+              <StoryVisual story={lead} large />
+
+              <div className="category-lead-copy">
+                <span className="eyebrow">
+                  {lead.category}
+                </span>
+
+                <h2>
+                  <a href={`/en/post/${lead.slug}`}>
+                    {lead.title}
+                  </a>
+                </h2>
+
+                <p>{lead.summary}</p>
+
+                <div className="category-story-meta">
+                  <span>Khulaasaa</span>
+                  <span>{lead.time}</span>
+                </div>
               </div>
-            </article>
-          ))}
-        </section>
-      </div>
-    </main>
+            </section>
+          )}
 
-      <footer className="site-footer">
-  <div className="container modern-footer">
-    <div className="footer-top">
-      <a
-        href="/en"
-        className="footer-logo-link"
-        aria-label="Khulaasaa English home"
-      >
-        <img
-          src="/logo.png"
-          alt="Khulaasaa"
-          className="footer-logo"
-        />
-      </a>
+          <section className="category-story-grid">
+            {remaining.map((story) => (
+              <article
+                className="category-story-card"
+                key={story.id}
+              >
+                <a href={`/en/post/${story.slug}`}>
+                  <StoryVisual story={story} />
+                </a>
 
-      <div className="footer-nav">
-        <a href="/en/national">National</a>
-        <a href="/en/business">Business</a>
-        <a href="/en/world">World</a>
-        <a href="/en/sports">Sports</a>
-        <a href="/en/gallery">Gallery</a>
-      </div>
-    </div>
+                <div>
+                  <span className="eyebrow">
+                    {story.category}
+                  </span>
 
-    <div className="footer-divider" />
+                  <h2>
+                    <a href={`/en/post/${story.slug}`}>
+                      {story.title}
+                    </a>
+                  </h2>
 
-    <div className="footer-middle">
-      <div className="footer-column">
-        <span className="footer-label">Explore</span>
-        <a href="/en">Home</a>
-        <a href="#latest">Latest News</a>
-        <a href="/en/gallery">Gallery</a>
-      </div>
+                  <p>{story.summary}</p>
 
-      <div className="footer-column">
-        <span className="footer-label">Edition</span>
-        <a href="https://www.khulaasaa.com/">
-          Dhivehi ↗
-        </a>
-      </div>
+                  <span className="story-meta">
+                    {story.time}
+                  </span>
+                </div>
+              </article>
+            ))}
+          </section>
 
-      <div className="footer-column">
-        <span className="footer-label">Follow</span>
-
-        <div className="footer-socials">
-          <a href="#" aria-label="Facebook">
-            f
-          </a>
-
-          <a href="#" aria-label="Instagram">
-            ◎
-          </a>
-
-          <a href="#" aria-label="X">
-            𝕏
-          </a>
-
-          <a href="#" aria-label="YouTube">
-            ▶
-          </a>
         </div>
-      </div>
-    </div>
+      </main>
 
-    <div className="footer-divider" />
-
-    <div className="footer-bottom">
-      <span>
-        © {new Date().getFullYear()} Khulaasaa Media
-      </span>
-
-      <div className="footer-legal">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Corrections</a>
-        <a href="#">Contact</a>
-      </div>
-    </div>
-  </div>
-</footer>
+      <SiteFooter />
     </>
-
   );
 }
-
-
-
-
-
 
 
 

@@ -9,6 +9,7 @@ export const stories = [
   {
     id: 1,
     slug: "main-story",
+    publishedAt: "2026-10-01T13:08:50+05:00",
     category: "National",
     categorySlug: "national",
     title: "Your main English headline will appear here.",
@@ -155,3 +156,4 @@ export const gallery = [
     image: null,
   },
 ];
+

@@ -1,0 +1,249 @@
+﻿import { notFound } from "next/navigation";
+import SiteFooter from "../../../components/SiteFooter";
+import ArticleReactions from "../../../components/ArticleReactions";
+import PublishedTime from "../../../components/PublishedTime";
+import {
+  getEnglishArticle,
+  getEnglishArticles,
+} from "../../../../lib/englishApi";
+
+function StoryVisual({ story }) {
+  if (story.image) {
+    return (
+      <img
+        src={story.image}
+        alt={story.title}
+        className="article-cover-image"
+      />
+    );
+  }
+
+  return (
+    <div className="article-cover-placeholder">
+      <span className="article-cover-k">K.</span>
+
+      <span className="article-cover-category">
+        {story.categories?.[0]?.name || "News"}
+      </span>
+    </div>
+  );
+}
+
+export default async function ArticlePage({ params }) {
+  const { slug } = await params;
+
+  const story = await getEnglishArticle(slug);
+
+  if (!story) {
+    notFound();
+  }
+
+  const allArticles = await getEnglishArticles(12);
+
+  const primaryCategory =
+    story.categories?.[0]?.name || "News";
+
+  const related = allArticles
+    .filter(
+      (item) =>
+        item.id !== story.id &&
+        item.categories?.some(
+          (category) =>
+            category.name === primaryCategory
+        )
+    )
+    .slice(0, 3);
+
+  return (
+    <>
+      <main className="article-page">
+        <div className="container article-container">
+
+          <header className="article-site-header article-mobile-header">
+            <button
+              type="button"
+              className="mobile-search-button"
+              aria-label="Search"
+            >
+              <span aria-hidden="true">⌕</span>
+            </button>
+
+            <details className="mobile-menu article-sections-menu">
+              <summary aria-label="Open sections">
+                <span>＋</span>
+              </summary>
+
+              <nav>
+                <a
+                  href="https://www.khulaasaa.com/"
+                  className="mobile-edition-switch"
+                >
+                  <span>Switch to Dhivehi edition</span>
+                  <span className="edition-arrow">↗</span>
+                </a>
+
+                <a href="/en">Home</a>
+                <a href="/en/national">National</a>
+                <a href="/en/business">Business</a>
+                <a href="/en/world">World</a>
+                <a href="/en/sports">Sports</a>
+                <a href="/en/gallery">Gallery</a>
+              </nav>
+            </details>
+
+            <a
+              href="/en"
+              className="article-logo-link article-centered-logo"
+              aria-label="Khulaasaa English"
+            >
+              <img
+                src="/logo.png"
+                alt="Khulaasaa"
+                className="article-logo"
+              />
+            </a>
+          </header>
+
+          <article className="article-main">
+            <div className="article-heading">
+              <span className="eyebrow">
+                {primaryCategory}
+              </span>
+
+              <h1>{story.title}</h1>
+
+              {story.summary && (
+                <p className="article-summary">
+                  {story.summary}
+                </p>
+              )}
+
+              <div className="article-meta">
+                <span>
+                  By <strong>{story.author || "Khulaasaa"}</strong>
+                </span>
+
+                <span className="article-meta-dot" />
+
+                <PublishedTime
+                  publishedAt={story.published_at}
+                />
+              </div>
+            </div>
+
+            <StoryVisual story={story} />
+
+            {story.image_caption && (
+              <p className="article-image-caption">
+                {story.image_caption}
+              </p>
+            )}
+
+            <div
+              className="article-body"
+              dangerouslySetInnerHTML={{
+                __html:
+                  story.content ||
+                  "<p>Article content is not available.</p>",
+              }}
+            />
+
+            <section className="article-engagement">
+              <ArticleReactions />
+
+              <div className="article-comments">
+                <div className="comments-heading">
+                  <h2>Comments</h2>
+                  <span>
+                    {story.comments?.length || 0} comments
+                  </span>
+                </div>
+
+                <form className="comment-form">
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    aria-label="Your name"
+                  />
+
+                  <textarea
+                    placeholder="Write a comment..."
+                    aria-label="Write a comment"
+                    rows="4"
+                  />
+
+                  <button type="submit">
+                    Post comment
+                  </button>
+                </form>
+
+                {story.comments?.length > 0 ? (
+                  <div className="published-comments">
+                    {story.comments.map((comment) => (
+                      <article
+                        className="published-comment"
+                        key={comment.id}
+                      >
+                        <strong>{comment.name}</strong>
+                        <p>{comment.body}</p>
+                      </article>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="comments-empty">
+                    Be the first to comment on this story.
+                  </div>
+                )}
+              </div>
+            </section>
+
+            {related.length > 0 && (
+              <section className="article-related">
+                <div className="section-heading">
+                  <h2>
+                    Related Stories<span>.</span>
+                  </h2>
+                </div>
+
+                <div className="article-related-list">
+                  {related.map((item) => (
+                    <a
+                      href={`/en/post/${item.id}`}
+                      className="article-related-item"
+                      key={item.id}
+                    >
+                      <div className="article-related-thumb">
+                        {item.image ? (
+                          <img
+                            src={item.image}
+                            alt={item.title}
+                          />
+                        ) : (
+                          <span>K.</span>
+                        )}
+                      </div>
+
+                      <div className="article-related-copy">
+                        <span className="eyebrow">
+                          {item.categories?.[0]?.name || "News"}
+                        </span>
+
+                        <h3>{item.title}</h3>
+
+                        <PublishedTime
+                          publishedAt={item.published_at}
+                        />
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )}
+          </article>
+        </div>
+      </main>
+
+      <SiteFooter />
+    </>
+  );
+}
