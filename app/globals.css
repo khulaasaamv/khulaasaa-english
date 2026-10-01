@@ -6683,3 +6683,26 @@ h6,
     aspect-ratio: 16 / 9;
   }
 }
+/* Article image caption */
+.article-image-caption,
+.article-caption,
+.article-main figcaption,
+.article-cover-caption {
+  margin-top: 8px;
+  color: #777;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+@media (max-width: 700px) {
+  .article-image-caption,
+  .article-caption,
+  .article-main figcaption,
+  .article-cover-caption {
+    margin-top: 7px;
+    font-size: 11px;
+    line-height: 1.35;
+    color: #7a7a7a;
+  }
+}

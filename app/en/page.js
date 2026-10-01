@@ -134,9 +134,27 @@ function Header() {
 export default async function EnglishHome() {
   const articles = await getEnglishArticles(30);
 
-  const lead = articles[0] || null;
-  const sideStories = articles.slice(1, 4);
-  const moreStories = articles.slice(4, 12);
+  const featuredArticles = articles
+    .filter((article) => Boolean(article.is_featured))
+    .sort(
+      (a, b) =>
+        (a.featured_position ?? 999) -
+        (b.featured_position ?? 999)
+    );
+
+  const lead = featuredArticles[0] || null;
+
+  const remainingArticles = lead
+    ? articles.filter((article) => article.id !== lead.id)
+    : articles;
+
+  const sideStories = lead
+    ? remainingArticles.slice(0, 3)
+    : [];
+
+  const moreStories = lead
+    ? remainingArticles.slice(3, 11)
+    : remainingArticles.slice(0, 12);
 
   return (
     <>
@@ -226,17 +244,12 @@ export default async function EnglishHome() {
               </aside>
 
             </section>
-          ) : (
-            <section className="kh-front-no-news">
-              <h1>Khulaasaa English</h1>
-              <p>No English articles are available yet.</p>
-            </section>
-          )}
+          ) : null}
 
           {moreStories.length > 0 && (
             <section className="kh-front-more">
               <div className="kh-front-section-title">
-                <h2>More Top Stories</h2>
+                <h2>{lead ? "More Top Stories" : "Top Stories"}</h2>
               </div>
 
               <div className="kh-front-more-grid">
