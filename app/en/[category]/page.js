@@ -1,6 +1,13 @@
 import { notFound } from "next/navigation";
-import { categories, stories } from "../../../data/stories";
 import SiteFooter from "../../components/SiteFooter";
+import { getEnglishArticles } from "../../../lib/englishApi";
+
+const categories = [
+  { name: "National", slug: "national" },
+  { name: "Business", slug: "business" },
+  { name: "World", slug: "world" },
+  { name: "Sports", slug: "sports" },
+];
 
 function StoryVisual({ story, large = false }) {
   if (story.image) {
@@ -42,9 +49,22 @@ export default async function CategoryPage({ params }) {
     notFound();
   }
 
-  const categoryStories = stories.filter(
-    (story) => story.categorySlug === category
+  const liveArticles = await getEnglishArticles(
+    30,
+    currentCategory.name
   );
+
+  const categoryStories = liveArticles.map((article) => ({
+    id: article.id,
+    slug: String(article.id),
+    category: article.categories?.[0]?.name || currentCategory.name,
+    title: article.short_title || article.title,
+    fullTitle: article.title,
+    summary: article.summary || "",
+    image: article.image || article.main_image || article.thumbnail || null,
+    time: "Latest",
+    publishedAt: article.published_at,
+  }));
 
   const lead = categoryStories[0];
   const remaining = categoryStories.slice(1);
@@ -55,16 +75,18 @@ export default async function CategoryPage({ params }) {
         <div className="container">
 
           <div className="category-brand-header category-mobile-header">
-  <button
-    type="button"
-    className="mobile-search-button"
-    aria-label="Search"
-  >
-    <span aria-hidden="true">⌕</span>
-  </button>
+            <button
+              type="button"
+              className="mobile-search-button"
+              aria-label="Search"
+            >
+              <span aria-hidden="true">⌕</span>
+            </button>
 
             <details className="mobile-menu category-sections-menu">
-              <summary aria-label="Open sections"><span>＋</span></summary>
+              <summary aria-label="Open sections">
+                <span>＋</span>
+              </summary>
 
               <nav>
                 <a
@@ -95,13 +117,11 @@ export default async function CategoryPage({ params }) {
                 className="category-brand-logo"
               />
             </a>
-
           </div>
 
           <header className="category-hero-header">
             <div>
               <span className="eyebrow">SECTION</span>
-
               <h1>
                 {currentCategory.name}<span>.</span>
               </h1>
@@ -113,61 +133,67 @@ export default async function CategoryPage({ params }) {
             </p>
           </header>
 
-          {lead && (
-            <section className="category-lead">
-              <StoryVisual story={lead} large />
+          {lead ? (
+            <>
+              <section className="category-lead">
+                <StoryVisual story={lead} large />
 
-              <div className="category-lead-copy">
-                <span className="eyebrow">
-                  {lead.category}
-                </span>
-
-                <h2>
-                  <a href={`/en/post/${lead.slug}`}>
-                    {lead.title}
-                  </a>
-                </h2>
-
-                <p>{lead.summary}</p>
-
-                <div className="category-story-meta">
-                  <span>Khulaasaa</span>
-                  <span>{lead.time}</span>
-                </div>
-              </div>
-            </section>
-          )}
-
-          <section className="category-story-grid">
-            {remaining.map((story) => (
-              <article
-                className="category-story-card"
-                key={story.id}
-              >
-                <a href={`/en/post/${story.slug}`}>
-                  <StoryVisual story={story} />
-                </a>
-
-                <div>
+                <div className="category-lead-copy">
                   <span className="eyebrow">
-                    {story.category}
+                    {lead.category}
                   </span>
 
                   <h2>
-                    <a href={`/en/post/${story.slug}`}>
-                      {story.title}
+                    <a href={`/en/post/${lead.id}`}>
+                      {lead.title}
                     </a>
                   </h2>
 
-                  <p>{story.summary}</p>
+                  <p>{lead.summary}</p>
 
-                  <span className="story-meta">
-                    {story.time}
-                  </span>
+                  <div className="category-story-meta">
+                    <span>Khulaasaa</span>
+                    <span>{lead.time}</span>
+                  </div>
                 </div>
-              </article>
-            ))}
-          </section>
+              </section>
+
+              <section className="category-story-grid">
+                {remaining.map((story) => (
+                  <article
+                    className="category-story-card"
+                    key={story.id}
+                  >
+                    <a href={`/en/post/${story.id}`}>
+                      <StoryVisual story={story} />
+                    </a>
+
+                    <div>
+                      <span className="eyebrow">
+                        {story.category}
+                      </span>
+
+                      <h2>
+                        <a href={`/en/post/${story.id}`}>
+                          {story.title}
+                        </a>
+                      </h2>
+
+                      <p>{story.summary}</p>
+
+                      <span className="story-meta">
+                        {story.time}
+                      </span>
+                    </div>
+                  </article>
+                ))}
+              </section>
+            </>
+          ) : (
+            <div className="category-empty">
+              <p>No articles are available in this section yet.</p>
+            </div>
+          )}
 
         </div>
       </main>
@@ -176,6 +202,3 @@ export default async function CategoryPage({ params }) {
     </>
   );
 }
-
-
-

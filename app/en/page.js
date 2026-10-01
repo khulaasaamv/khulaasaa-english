@@ -51,7 +51,7 @@ export default async function EnglishHome() {
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-|-$/g, ""),
-      title: article.title,
+      title: article.short_title || article.title,
       summary: article.summary || "",
       image: article.image || null,
       href: `/en/post/${article.id}`,
