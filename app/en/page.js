@@ -17,6 +17,30 @@ const navItems = [
   { name: "Gallery", href: "/en/gallery" },
 ];
 
+
+async function getEnglishGalleries() {
+  try {
+    const response = await fetch(
+      "https://alpha.khulaasaa.com/api/galleries?language=en",
+      {
+        next: { revalidate: 60 },
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) return [];
+
+    const result = await response.json();
+
+    return Array.isArray(result)
+      ? result
+      : result?.data || [];
+  } catch {
+    return [];
+  }
+}
 function articleHeadline(article) {
   return article?.short_title || article?.title || "";
 }
@@ -226,6 +250,10 @@ function NewsSection({ title, articles, href }) {
 }
 
 export default async function EnglishHome() {
+  const galleries = await getEnglishGalleries();
+  const latestGallery = galleries[0] || null;
+  const sideGalleries = galleries.slice(1, 4);
+  const remainingGalleries = galleries.slice(4);
   const articles = await getEnglishArticles(60);
 
   const featuredArticles = articles
@@ -407,10 +435,153 @@ export default async function EnglishHome() {
             />
           </div>
 
+          
+          <section className="kh-home-section kh-gallery-section">
+            <div className="kh-home-section-header">
+              <h2>Gallery</h2>
+
+              <a href="/en/gallery">
+                View gallery →
+              </a>
+            </div>
+
+            {latestGallery ? (
+              <>
+                <div className="kh-home-gallery-feature-layout">
+
+                  <a
+                    href={`/en/gallery/${latestGallery.id}`}
+                    className="kh-home-gallery-card kh-home-gallery-main"
+                  >
+                    <div className="kh-home-gallery-image">
+                      {latestGallery.featured_image ? (
+                        <img
+                          src={latestGallery.featured_image}
+                          alt={latestGallery.title}
+                        />
+                      ) : (
+                        <div className="kh-home-gallery-fallback">
+                          K.
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="kh-home-gallery-copy">
+                      <span className="kh-home-gallery-label">
+                        LATEST GALLERY
+                      </span>
+
+                      <h3>{latestGallery.title}</h3>
+
+                      {latestGallery.summary && (
+                        <p className="kh-home-gallery-summary">
+                          {latestGallery.summary}
+                        </p>
+                      )}
+
+                      <div className="kh-home-gallery-meta">
+                        {latestGallery.images?.length || 0}{" "}
+                        {(latestGallery.images?.length || 0) === 1
+                          ? "photo"
+                          : "photos"}
+                      </div>
+                    </div>
+                  </a>
+
+                  {sideGalleries.length > 0 && (
+                    <div className="kh-home-gallery-side">
+                      {sideGalleries.map((gallery) => (
+                        <a
+                          href={`/en/gallery/${gallery.id}`}
+                          className="kh-home-gallery-side-card"
+                          key={gallery.id}
+                        >
+                          <div className="kh-home-gallery-side-image">
+                            {gallery.featured_image ? (
+                              <img
+                                src={gallery.featured_image}
+                                alt={gallery.title}
+                              />
+                            ) : (
+                              <div className="kh-home-gallery-fallback">
+                                K.
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="kh-home-gallery-side-copy">
+                            <span>
+                              {gallery.images?.length || 0}{" "}
+                              {(gallery.images?.length || 0) === 1
+                                ? "photo"
+                                : "photos"}
+                            </span>
+
+                            <h3>{gallery.title}</h3>
+
+                            {gallery.summary && (
+                              <p>{gallery.summary}</p>
+                            )}
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {remainingGalleries.length > 0 && (
+                  <div className="kh-home-gallery-grid">
+                    {remainingGalleries.map((gallery) => (
+                      <a
+                        href={`/en/gallery/${gallery.id}`}
+                        className="kh-home-gallery-small"
+                        key={gallery.id}
+                      >
+                        <div className="kh-home-gallery-small-image">
+                          {gallery.featured_image ? (
+                            <img
+                              src={gallery.featured_image}
+                              alt={gallery.title}
+                            />
+                          ) : (
+                            <div className="kh-home-gallery-fallback">
+                              K.
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="kh-home-gallery-small-copy">
+                          <span>
+                            {gallery.images?.length || 0}{" "}
+                            {(gallery.images?.length || 0) === 1
+                              ? "photo"
+                              : "photos"}
+                          </span>
+
+                          <h3>{gallery.title}</h3>
+
+                          {gallery.summary && (
+                            <p>{gallery.summary}</p>
+                          )}
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="kh-gallery-placeholder">
+                <a href="/en/gallery">
+                  View the latest Khulaasaa photo galleries
+                </a>
+              </div>
+            )}
+          </section>
+
           <NewsSection
-            title="World News"
-            articles={worldNews}
-            href="/en/world"
+            title="Local"
+            articles={local}
+            href="/en/local"
           />
 
           <NewsSection
@@ -426,32 +597,17 @@ export default async function EnglishHome() {
           />
 
           <NewsSection
+            title="World News"
+            articles={worldNews}
+            href="/en/world"
+          />
+
+          <NewsSection
             title="Sports"
             articles={sports}
             href="/en/sports"
           />
 
-          <NewsSection
-            title="Local"
-            articles={local}
-            href="/en/local"
-          />
-
-          <section className="kh-home-section kh-gallery-section">
-            <div className="kh-home-section-header">
-              <h2>Gallery</h2>
-
-              <a href="/en/gallery">
-                View gallery →
-              </a>
-            </div>
-
-            <div className="kh-gallery-placeholder">
-              <a href="/en/gallery">
-                View the latest Khulaasaa photo galleries
-              </a>
-            </div>
-          </section>
 
         </div>
       </main>
