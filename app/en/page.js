@@ -402,7 +402,7 @@ export default async function EnglishHome() {
 
           <div className="desktop-featured-articles">
             <NewsSection
-              title="Featured Articles"
+              title="Editor's Picks"
               articles={featuredCards}
             />
           </div>

@@ -4,6 +4,7 @@ import ArticleReactions from "../../../components/ArticleReactions";
 import ArticleComments from "../../../components/ArticleComments";
 import PublishedTime from "../../../components/PublishedTime";
 import ArticleBackLink from "../../../components/ArticleBackLink";
+import ArticleShareButton from "../../../components/ArticleShareButton";
 import ArticleDesktopHeader from "../../../components/ArticleDesktopHeader";
 
 import {
@@ -182,16 +183,20 @@ export default async function ArticlePage({ params }) {
                 </p>
               )}
 
-              <div className="article-meta">
-                <span>
-                  By {story.author || "Khulaasaa"}
-                </span>
+              <div className="article-meta article-meta-share">
+                <div className="article-meta-details">
+                  <span>
+                    By {story.author || "Khulaasaa"}
+                  </span>
 
-                <span aria-hidden="true">•</span>
+                  <span aria-hidden="true">•</span>
 
-                <PublishedTime
-                  publishedAt={story.published_at}
-                />
+                  <PublishedTime
+                    publishedAt={story.published_at}
+                  />
+                </div>
+
+                <ArticleShareButton title={story.title} />
               </div>
             </div>
 

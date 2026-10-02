@@ -2,18 +2,18 @@
 
 import { useEffect, useState } from "react";
 
-const categoryLabels = {
-  "latest-news": "Latest News",
-  world: "World News",
-  reports: "Reports",
-  business: "Business",
-  sports: "Sports",
-  local: "Local",
-  gallery: "Gallery",
+const CATEGORY_NAMES = {
+  "/en/latest-news": "Latest News",
+  "/en/world": "World News",
+  "/en/reports": "Reports",
+  "/en/business": "Business",
+  "/en/sports": "Sports",
+  "/en/local": "Local",
+  "/en/gallery": "Gallery",
 };
 
 export default function ArticleBackLink() {
-  const [target, setTarget] = useState({
+  const [backLink, setBackLink] = useState({
     href: "/en",
     label: "Home",
   });
@@ -22,43 +22,38 @@ export default function ArticleBackLink() {
     try {
       if (!document.referrer) return;
 
-      const referrer = new URL(document.referrer);
+      const previous = new URL(document.referrer);
 
-      if (referrer.origin !== window.location.origin) {
-        return;
-      }
+      if (previous.origin !== window.location.origin) return;
 
-      const path = referrer.pathname.replace(/\/+$/, "");
+      const pathname = previous.pathname.replace(/\/$/, "");
 
-      if (path === "/en") {
-        setTarget({
-          href: "/en",
-          label: "Home",
+      if (CATEGORY_NAMES[pathname]) {
+        setBackLink({
+          href: pathname,
+          label: CATEGORY_NAMES[pathname],
         });
         return;
       }
 
-      const match = path.match(/^\/en\/([^/]+)$/);
-
-      if (match) {
-        const slug = match[1];
-
-        if (categoryLabels[slug]) {
-          setTarget({
-            href: `/en/${slug}`,
-            label: categoryLabels[slug],
-          });
-        }
+      if (pathname === "/en") {
+        setBackLink({
+          href: "/en",
+          label: "Home",
+        });
       }
     } catch {
-      // Default remains Home.
+      // Default to English home.
     }
   }, []);
 
   return (
-    <a href={target.href} className="article-context-back">
+    <a
+      href={backLink.href}
+      className="article-back-link"
+    >
       <span aria-hidden="true">←</span>
-      <span>{target.label}</span>
+      <span>{backLink.label}</span>
     </a>
   );
 }

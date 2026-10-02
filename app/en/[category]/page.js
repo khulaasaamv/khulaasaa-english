@@ -127,49 +127,7 @@ export default async function CategoryPage({ params }) {
 
   return (
     <>
-      <header className="category-desktop-header">
-        <div className="container">
-          <div className="category-top-brand">
-            <a href="/en" className="category-brand-link">
-              <img
-                src="https://khulaasaa-english.vercel.app/logo.png"
-                alt="Khulaasaa"
-                className="category-brand-logo"
-              />
-
-              <div className="category-brand-text">
-                <strong>KHULAASAA</strong>
-                <span>ENGLISH</span>
-              </div>
-            </a>
-
-            <a
-              href="https://www.khulaasaa.com/"
-              className="category-edition-link"
-            >
-              Dhivehi edition ↗
-            </a>
-          </div>
-
-          <nav className="category-main-nav">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={
-                  item.href === `/en/${category}`
-                    ? "active"
-                    : ""
-                }
-              >
-                {item.name}
-              </a>
-            ))}
-          </nav>
-        </div>
-      </header>
-
-      <div className="category-mobile-topbar">
+<div className="category-mobile-topbar">
   <button
     type="button"
     className="category-mobile-dim"
@@ -217,18 +175,14 @@ export default async function CategoryPage({ params }) {
 <main className="category-page">
         <div className="container">
 
-          <header className="category-hero-header">
-            <div>
-              <span className="eyebrow">SECTION</span>
+          <a href="/en" className="category-desktop-back">← Home</a>
 
-              <h1>
+        <header className="category-hero-header">
+            <div>
+<h1>
                 {section.name}<span>.</span>
               </h1>
             </div>
-
-            <p>
-              Latest reporting and updates from Khulaasaa English.
-            </p>
           </header>
 
           {lead ? (

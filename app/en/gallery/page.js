@@ -1,100 +1,169 @@
-import { gallery } from "../../../data/stories";
+import SiteFooter from "../../components/SiteFooter";
+const API_URL = "https://alpha.khulaasaa.com/api/galleries?language=en";
 
-function GalleryVisual({ item, featured = false }) {
-  if (item.image) {
-    return (
-      <img
-        src={item.image}
-        alt={item.title}
-        className="gallery-image"
-      />
-    );
+async function getEnglishGalleries() {
+  try {
+    const response = await fetch(API_URL, {
+      next: { revalidate: 60 },
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (!response.ok) return [];
+
+    const result = await response.json();
+
+    return Array.isArray(result)
+      ? result
+      : result?.data || [];
+  } catch {
+    return [];
   }
+}
 
+function getCover(item) {
   return (
-    <div
-      className={`gallery-placeholder ${
-        featured ? "gallery-featured-placeholder" : ""
-      }`}
-    >
-      <span className="gallery-k">K.</span>
-      <span className="gallery-label">KHULAASAA / GALLERY</span>
-    </div>
+    item.featured_image ||
+    item.featured_image_url ||
+    item.images?.[0]?.image ||
+    null
   );
 }
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+  const galleries = await getEnglishGalleries();
+
+  const featured = galleries[0] || null;
+  const remaining = galleries.slice(1);
+
   return (
-    <main className="gallery-page">
+    <>
+      <main className="gallery-page">
       <div className="container">
+
         <div className="category-brand-header">
-  <div className="category-brand-left">
-    <a
-      href="/en"
-      className="category-brand-link"
-      aria-label="Khulaasaa English home"
-    >
-      <img
-        src="https://khulaasaa-english.vercel.app/logo.png"
-        alt="Khulaasaa"
-        className="category-brand-logo"
-      />
-    </a>
-  </div>
-
-  <a href="/en" className="category-back-link">
-    ← Home
-  </a>
-</div>
-
-<header className="category-hero-header gallery-category-header">
-  <div>
-    <span className="eyebrow">SECTION</span>
-
-    <h1>
-      Gallery<span>.</span>
-    </h1>
-  </div>
-
-  <p>
-    The Maldives and beyond, captured through the Khulaasaa lens.
-  </p>
-</header>
-
-        <section className="gallery-featured">
-          <GalleryVisual item={gallery[0]} featured />
-
-          <div className="gallery-featured-copy">
-            <span className="eyebrow">FEATURED GALLERY</span>
-            <h2>{gallery[0].title}</h2>
-            <p>
-              A visual story featuring people, places and moments worth
-              remembering.
-            </p>
-          </div>
-        </section>
-
-        <section className="gallery-grid">
-          {gallery.slice(1).map((item, index) => (
-            <article
-              className={`gallery-card ${
-                index === 1 ? "gallery-card-wide" : ""
-              }`}
-              key={item.id}
+          <div className="category-brand-left">
+            <a
+              href="/en"
+              className="category-brand-link"
+              aria-label="Khulaasaa English home"
             >
-              <GalleryVisual item={item} />
+              <img
+                src="https://khulaasaa-english.vercel.app/logo.png"
+                alt="Khulaasaa"
+                className="category-brand-logo"
+              />
+            </a>
+          </div>
 
-              <div className="gallery-card-overlay">
-                <span>PHOTO STORY</span>
-                <h2>{item.title}</h2>
+          <a href="/en" className="category-back-link">
+            ← Home
+          </a>
+        </div>
+
+        <header className="gallery-modern-header">
+          <div>
+            <span className="eyebrow">VISUAL STORIES</span>
+            <h1>
+              Gallery<span>.</span>
+            </h1>
+          </div>
+
+          <p>
+            Photo stories from the Maldives and beyond.
+          </p>
+        </header>
+
+        {!featured ? (
+          <section className="gallery-live-empty">
+            <h2>No galleries published yet.</h2>
+          </section>
+        ) : (
+          <>
+            <a
+              href={`/en/gallery/${featured.id}`}
+              className="gallery-modern-feature"
+            >
+              <div className="gallery-modern-feature-image">
+                {getCover(featured) ? (
+                  <img
+                    src={getCover(featured)}
+                    alt={featured.title}
+                  />
+                ) : (
+                  <div className="gallery-placeholder">
+                    <span className="gallery-k">K.</span>
+                  </div>
+                )}
               </div>
-            </article>
-          ))}
-        </section>
+
+              <div className="gallery-modern-feature-copy">
+                <span className="eyebrow">
+                  LATEST GALLERY
+                </span>
+
+                <h2>{featured.title}</h2>
+
+                {featured.summary && (
+                  <p>{featured.summary}</p>
+                )}
+
+                <div className="gallery-modern-meta">
+                  <span>
+                    {featured.images?.length || 0}{" "}
+                    {(featured.images?.length || 0) === 1
+                      ? "photo"
+                      : "photos"}
+                  </span>
+
+                  <span>View gallery →</span>
+                </div>
+              </div>
+            </a>
+
+            {remaining.length > 0 && (
+              <section className="gallery-modern-grid">
+                {remaining.map((item) => (
+                  <a
+                    href={`/en/gallery/${item.id}`}
+                    className="gallery-modern-card"
+                    key={item.id}
+                  >
+                    <div className="gallery-modern-card-image">
+                      {getCover(item) ? (
+                        <img
+                          src={getCover(item)}
+                          alt={item.title}
+                        />
+                      ) : (
+                        <div className="gallery-placeholder">
+                          <span className="gallery-k">K.</span>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="gallery-modern-card-copy">
+                      <span>
+                        {item.images?.length || 0}{" "}
+                        {(item.images?.length || 0) === 1
+                          ? "photo"
+                          : "photos"}
+                      </span>
+
+                      <h3>{item.title}</h3>
+                    </div>
+                  </a>
+                ))}
+              </section>
+            )}
+          </>
+        )}
+
       </div>
-    </main>
+      </main>
+
+      <SiteFooter />
+    </>
   );
 }
-
-
-
