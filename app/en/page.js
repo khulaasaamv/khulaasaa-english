@@ -2,6 +2,10 @@ import SiteFooter from "../components/SiteFooter";
 import MaldivesDateTime from "../components/MaldivesDateTime";
 import { getEnglishArticles } from "../../lib/englishApi";
 
+const EDITORS_PICK_IDS = [
+  16597,
+  16581,
+];
 const navItems = [
   { name: "Home", href: "/en" },
   { name: "Latest News", href: "/en/latest-news" },
@@ -71,6 +75,51 @@ function Header() {
       </div>
 
       <header className="site-header">
+        <div className="home-mobile-topbar">
+
+          <button
+            type="button"
+            className="home-mobile-dim"
+            aria-label="Toggle dim mode"
+          >
+            ◐
+          </button>
+
+          <a
+            href="/en"
+            className="home-mobile-logo-link"
+            aria-label="Khulaasaa English home"
+          >
+            <img
+              src="https://khulaasaa-english.vercel.app/logo.png"
+              alt="Khulaasaa"
+              className="home-mobile-logo"
+            />
+          </a>
+
+          <details className="home-mobile-sections">
+            <summary aria-label="Open sections">☰</summary>
+
+            <nav>
+              <a href="/en">Home</a>
+              <a href="/en/latest-news">Latest News</a>
+              <a href="/en/world">World News</a>
+              <a href="/en/reports">Reports</a>
+              <a href="/en/business">Business</a>
+              <a href="/en/sports">Sports</a>
+              <a href="/en/local">Local</a>
+              <a href="/en/gallery">Gallery</a>
+
+              <a
+                href="https://www.khulaasaa.com/"
+                className="home-mobile-dhivehi"
+              >
+                Dhivehi edition ↗
+              </a>
+            </nav>
+          </details>
+
+        </div>
         <div className="container masthead">
           <div className="brand-wrap">
             <a
@@ -201,6 +250,11 @@ export default async function EnglishHome() {
     .filter((article) => article.id !== lead?.id)
     .slice(0, 4);
 
+  const editorsPicks = EDITORS_PICK_IDS
+    .map((id) => articles.find((article) => article.id === id))
+    .filter(Boolean)
+    .slice(0, 3);
+
   const categoryMatches = (names) =>
     articles.filter((article) => {
       const current = normalizeCategory(articleCategory(article));
@@ -277,12 +331,52 @@ export default async function EnglishHome() {
                   )}
                 </a>
 
-                {lead.image_caption && (
-                  <p className="kh-featured-caption">
-                    {lead.image_caption}
-                  </p>
-                )}
+
               </div>
+
+              {featuredCards.length > 0 && (
+                <section className="kh-mobile-featured-cards">
+                  <div className="kh-mobile-featured-heading">
+                    Editor’s Picks
+                  </div>
+
+                  <div className="kh-mobile-featured-grid">
+                  {featuredCards.map((story) => (
+                    <article
+                      className="kh-mobile-featured-card"
+                      key={story.id}
+                    >
+                      <a href={`/en/post/${story.id}`}>
+                        {articleImage(story) ? (
+                          <img
+                            src={articleImage(story)}
+                            alt={articleHeadline(story)}
+                          />
+                        ) : (
+                          <div className="kh-mobile-featured-placeholder">
+                            K.
+                          </div>
+                        )}
+                      </a>
+
+                      <span className="kh-mobile-featured-category">
+                        {articleCategory(story)}
+                      </span>
+
+                      <h3>
+                        <a href={`/en/post/${story.id}`}>
+                          {articleHeadline(story)}
+                        </a>
+                      </h3>
+
+                      <span className="kh-mobile-featured-time">
+                        {timeAgo(story.published_at)}
+                      </span>
+                    </article>
+                  ))}
+                  </div>
+                </section>
+              )}
 
               <aside className="kh-featured-side">
                 <div className="kh-featured-side-title">
@@ -306,10 +400,12 @@ export default async function EnglishHome() {
             </section>
           )}
 
-          <NewsSection
-            title="Featured Articles"
-            articles={featuredCards}
-          />
+          <div className="desktop-featured-articles">
+            <NewsSection
+              title="Featured Articles"
+              articles={featuredCards}
+            />
+          </div>
 
           <NewsSection
             title="World News"

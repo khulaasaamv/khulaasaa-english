@@ -2,158 +2,270 @@ import { notFound } from "next/navigation";
 import SiteFooter from "../../components/SiteFooter";
 import { getEnglishArticles } from "../../../lib/englishApi";
 
-const categories = [
-  { name: "National", slug: "national" },
-  { name: "Business", slug: "business" },
-  { name: "World", slug: "world" },
-  { name: "Sports", slug: "sports" },
+const sections = {
+  "latest-news": {
+    name: "Latest News",
+    aliases: [],
+  },
+
+  world: {
+    name: "World News",
+    aliases: ["world news", "world"],
+  },
+
+  reports: {
+    name: "Reports",
+    aliases: ["reports", "report"],
+  },
+
+  business: {
+    name: "Business",
+    aliases: ["business"],
+  },
+
+  sports: {
+    name: "Sports",
+    aliases: ["sports", "sport"],
+  },
+
+  local: {
+    name: "Local",
+    aliases: ["local", "national", "news"],
+  },
+};
+
+const navItems = [
+  { name: "Home", href: "/en" },
+  { name: "Latest News", href: "/en/latest-news" },
+  { name: "World News", href: "/en/world" },
+  { name: "Reports", href: "/en/reports" },
+  { name: "Business", href: "/en/business" },
+  { name: "Sports", href: "/en/sports" },
+  { name: "Local", href: "/en/local" },
+  { name: "Gallery", href: "/en/gallery" },
 ];
 
-function StoryVisual({ story, large = false }) {
-  if (story.image) {
-    return (
-      <img
-        src={story.image}
-        alt={story.title}
-        className={large ? "category-lead-image" : "category-card-image"}
-      />
-    );
-  }
+function normalize(value = "") {
+  return String(value).trim().toLowerCase();
+}
 
+function headline(article) {
+  return article?.short_title || article?.title || "";
+}
+
+function image(article) {
   return (
-    <div
-      className={`category-placeholder ${
-        large ? "category-lead-image" : "category-card-image"
-      }`}
-    >
-      <span>K.</span>
-      <small>{story.category}</small>
-    </div>
+    article?.image ||
+    article?.main_image ||
+    article?.thumbnail ||
+    null
   );
 }
 
+function categoryName(article) {
+  return article?.categories?.[0]?.name || "News";
+}
+
+function formatPublished(value) {
+  if (!value) return "";
+
+  const date = new Date(value);
+  const minutes = Math.floor((Date.now() - date.getTime()) / 60000);
+
+  if (minutes < 1) return "Just now";
+
+  if (minutes < 60) {
+    return `${minutes} min${minutes === 1 ? "" : "s"} ago`;
+  }
+
+  const hours = Math.floor(minutes / 60);
+
+  if (hours < 24) {
+    return `${hours} hr${hours === 1 ? "" : "s"} ago`;
+  }
+
+  return new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Indian/Maldives",
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(date);
+}
+
 export function generateStaticParams() {
-  return categories.map((category) => ({
-    category: category.slug,
+  return Object.keys(sections).map((category) => ({
+    category,
   }));
 }
 
 export default async function CategoryPage({ params }) {
   const { category } = await params;
 
-  const currentCategory = categories.find(
-    (item) => item.slug === category
-  );
+  const section = sections[category];
 
-  if (!currentCategory) {
+  if (!section) {
     notFound();
   }
 
-  const liveArticles = await getEnglishArticles(
-    30,
-    currentCategory.name
-  );
+  const articles = await getEnglishArticles(100);
 
-  const categoryStories = liveArticles.map((article) => ({
-    id: article.id,
-    slug: String(article.id),
-    category: article.categories?.[0]?.name || currentCategory.name,
-    title: article.short_title || article.title,
-    fullTitle: article.title,
-    summary: article.summary || "",
-    image: article.image || article.main_image || article.thumbnail || null,
-    time: "Latest",
-    publishedAt: article.published_at,
-  }));
+  const sectionArticles =
+    category === "latest-news"
+      ? articles
+      : articles.filter((article) => {
+          const articleCategories = (article.categories || []).map(
+            (item) => normalize(item.name)
+          );
 
-  const lead = categoryStories[0];
-  const remaining = categoryStories.slice(1);
+          return section.aliases.some((alias) =>
+            articleCategories.includes(normalize(alias))
+          );
+        });
+
+  const lead = sectionArticles[0] || null;
+  const remaining = sectionArticles.slice(1);
 
   return (
     <>
-      <main className="category-page">
+      <header className="category-desktop-header">
         <div className="container">
-
-          <div className="category-brand-header category-mobile-header">
-            <button
-              type="button"
-              className="mobile-search-button"
-              aria-label="Search"
-            >
-              <span aria-hidden="true">⌕</span>
-            </button>
-
-            <details className="mobile-menu category-sections-menu">
-              <summary aria-label="Open sections">
-                <span>＋</span>
-              </summary>
-
-              <nav>
-                <a
-                  href="https://www.khulaasaa.com/"
-                  className="mobile-edition-switch"
-                >
-                  <span>Switch to Dhivehi edition</span>
-                  <span className="edition-arrow">↗</span>
-                </a>
-
-                <a href="/en">Home</a>
-                <a href="/en/national">National</a>
-                <a href="/en/business">Business</a>
-                <a href="/en/world">World</a>
-                <a href="/en/sports">Sports</a>
-                <a href="/en/gallery">Gallery</a>
-              </nav>
-            </details>
-
-            <a
-              href="/en"
-              className="category-brand-link category-centered-logo"
-              aria-label="Khulaasaa English home"
-            >
+          <div className="category-top-brand">
+            <a href="/en" className="category-brand-link">
               <img
                 src="https://khulaasaa-english.vercel.app/logo.png"
                 alt="Khulaasaa"
                 className="category-brand-logo"
               />
+
+              <div className="category-brand-text">
+                <strong>KHULAASAA</strong>
+                <span>ENGLISH</span>
+              </div>
+            </a>
+
+            <a
+              href="https://www.khulaasaa.com/"
+              className="category-edition-link"
+            >
+              Dhivehi edition ↗
             </a>
           </div>
+
+          <nav className="category-main-nav">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className={
+                  item.href === `/en/${category}`
+                    ? "active"
+                    : ""
+                }
+              >
+                {item.name}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </header>
+
+      <div className="category-mobile-topbar">
+  <button
+    type="button"
+    className="category-mobile-dim"
+    aria-label="Toggle dim mode"
+  >
+    ◐
+  </button>
+
+  <a
+    href="/en"
+    className="category-mobile-logo-link"
+    aria-label="Khulaasaa English home"
+  >
+    <img
+      src="https://khulaasaa-english.vercel.app/logo.png"
+      alt="Khulaasaa"
+      className="category-mobile-logo"
+    />
+  </a>
+
+  <details className="category-mobile-sections">
+    <summary aria-label="Open categories">
+      ☰
+    </summary>
+
+    <nav>
+      <a href="/en">Home</a>
+      <a href="/en/latest-news">Latest News</a>
+      <a href="/en/world">World News</a>
+      <a href="/en/reports">Reports</a>
+      <a href="/en/business">Business</a>
+      <a href="/en/sports">Sports</a>
+      <a href="/en/local">Local</a>
+      <a href="/en/gallery">Gallery</a>
+
+      <a
+        href="https://www.khulaasaa.com/"
+        className="category-mobile-edition"
+      >
+        Dhivehi edition ↗
+      </a>
+    </nav>
+  </details>
+</div>
+<main className="category-page">
+        <div className="container">
 
           <header className="category-hero-header">
             <div>
               <span className="eyebrow">SECTION</span>
+
               <h1>
-                {currentCategory.name}<span>.</span>
+                {section.name}<span>.</span>
               </h1>
             </div>
 
             <p>
-              Latest reporting, analysis and essential updates from
-              Khulaasaa English.
+              Latest reporting and updates from Khulaasaa English.
             </p>
           </header>
 
           {lead ? (
             <>
               <section className="category-lead">
-                <StoryVisual story={lead} large />
+                <a href={`/en/post/${lead.id}`}>
+                  {image(lead) ? (
+                    <img
+                      src={image(lead)}
+                      alt={headline(lead)}
+                      className="category-lead-image"
+                    />
+                  ) : (
+                    <div className="category-placeholder category-lead-image">
+                      K.
+                    </div>
+                  )}
+                </a>
 
                 <div className="category-lead-copy">
                   <span className="eyebrow">
-                    {lead.category}
+                    {categoryName(lead)}
                   </span>
 
                   <h2>
                     <a href={`/en/post/${lead.id}`}>
-                      {lead.title}
+                      {headline(lead)}
                     </a>
                   </h2>
 
-                  <p>{lead.summary}</p>
+                  {lead.summary && (
+                    <p>{lead.summary}</p>
+                  )}
 
                   <div className="category-story-meta">
-                    <span>Khulaasaa</span>
-                    <span>{lead.time}</span>
+                    <span>{lead.author || "Khulaasaa"}</span>
+                    <span>{formatPublished(lead.published_at)}</span>
                   </div>
                 </div>
               </section>
@@ -165,24 +277,36 @@ export default async function CategoryPage({ params }) {
                     key={story.id}
                   >
                     <a href={`/en/post/${story.id}`}>
-                      <StoryVisual story={story} />
+                      {image(story) ? (
+                        <img
+                          src={image(story)}
+                          alt={headline(story)}
+                          className="category-card-image"
+                        />
+                      ) : (
+                        <div className="category-placeholder category-card-image">
+                          K.
+                        </div>
+                      )}
                     </a>
 
                     <div>
                       <span className="eyebrow">
-                        {story.category}
+                        {categoryName(story)}
                       </span>
 
                       <h2>
                         <a href={`/en/post/${story.id}`}>
-                          {story.title}
+                          {headline(story)}
                         </a>
                       </h2>
 
-                      <p>{story.summary}</p>
+                      {story.summary && (
+                        <p>{story.summary}</p>
+                      )}
 
                       <span className="story-meta">
-                        {story.time}
+                        {formatPublished(story.published_at)}
                       </span>
                     </div>
                   </article>
@@ -190,9 +314,13 @@ export default async function CategoryPage({ params }) {
               </section>
             </>
           ) : (
-            <div className="category-empty">
-              <p>No articles are available in this section yet.</p>
-            </div>
+            <section className="category-empty">
+              <h2>No stories published in {section.name} yet.</h2>
+              <p>
+                Stories will appear here automatically when English
+                articles are published under this section.
+              </p>
+            </section>
           )}
 
         </div>

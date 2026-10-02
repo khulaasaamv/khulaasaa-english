@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import SiteFooter from "../../../components/SiteFooter";
 import ArticleReactions from "../../../components/ArticleReactions";
 import PublishedTime from "../../../components/PublishedTime";
+import ArticleBackLink from "../../../components/ArticleBackLink";
 import {
   getEnglishArticle,
   getEnglishArticles,
@@ -109,49 +110,56 @@ export default async function ArticlePage({ params }) {
         <div className="container article-container">
 
           <header className="article-site-header article-mobile-header">
-            <button
-              type="button"
-              className="mobile-search-button"
-              aria-label="Search"
-            >
-              <span aria-hidden="true">⌕</span>
-            </button>
 
-            <details className="mobile-menu article-sections-menu">
-              <summary aria-label="Open sections">
-                <span>＋</span>
-              </summary>
+  <div className="home-mobile-topbar">
 
-              <nav>
-                <a
-                  href="https://www.khulaasaa.com/"
-                  className="mobile-edition-switch"
-                >
-                  <span>Switch to Dhivehi edition</span>
-                  <span className="edition-arrow">↗</span>
-                </a>
+    <button
+      type="button"
+      className="home-mobile-dim"
+      aria-label="Toggle dim mode"
+    >
+      ◐
+    </button>
 
-                <a href="/en">Home</a>
-                <a href="/en/national">National</a>
-                <a href="/en/business">Business</a>
-                <a href="/en/world">World</a>
-                <a href="/en/sports">Sports</a>
-                <a href="/en/gallery">Gallery</a>
-              </nav>
-            </details>
+    <a
+      href="/en"
+      className="home-mobile-logo-link"
+      aria-label="Khulaasaa English home"
+    >
+      <img
+        src="https://khulaasaa-english.vercel.app/logo.png"
+        alt="Khulaasaa"
+        className="home-mobile-logo"
+      />
+    </a>
 
-            <a
-              href="/en"
-              className="article-logo-link article-centered-logo"
-              aria-label="Khulaasaa English"
-            >
-              <img
-                src="https://khulaasaa-english.vercel.app/logo.png"
-                alt="Khulaasaa"
-                className="article-logo"
-              />
-            </a>
-          </header>
+    <details className="home-mobile-sections">
+      <summary aria-label="Open sections">☰</summary>
+
+      <nav>
+        <a href="/en">Home</a>
+        <a href="/en/latest-news">Latest News</a>
+        <a href="/en/world">World News</a>
+        <a href="/en/reports">Reports</a>
+        <a href="/en/business">Business</a>
+        <a href="/en/sports">Sports</a>
+        <a href="/en/local">Local</a>
+        <a href="/en/gallery">Gallery</a>
+
+        <a
+          href="https://www.khulaasaa.com/"
+          className="home-mobile-dhivehi"
+        >
+          Dhivehi edition ↗
+        </a>
+      </nav>
+    </details>
+
+  </div>
+
+</header>
+
+          <ArticleBackLink />
 
           <article className="article-main">
             <div className="article-heading">
