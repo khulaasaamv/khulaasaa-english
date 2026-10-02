@@ -1,3 +1,4 @@
+import EnglishDimToggle from "../components/EnglishDimToggle";
 import SiteFooter from "../components/SiteFooter";
 import MaldivesDateTime from "../components/MaldivesDateTime";
 import { getEnglishArticles } from "../../lib/englishApi";
@@ -101,13 +102,7 @@ function Header() {
       <header className="site-header">
         <div className="home-mobile-topbar">
 
-          <button
-            type="button"
-            className="home-mobile-dim"
-            aria-label="Toggle dim mode"
-          >
-            ◐
-          </button>
+          <EnglishDimToggle className="home-mobile-dim" />
 
           <a
             href="/en"

@@ -1,3 +1,4 @@
+import EnglishDimToggle from "../../../components/EnglishDimToggle";
 import { notFound } from "next/navigation";
 import SiteFooter from "../../../components/SiteFooter";
 import ArticleReactions from "../../../components/ArticleReactions";
@@ -120,13 +121,7 @@ export default async function ArticlePage({ params }) {
           <header className="article-site-header article-mobile-header">
             <div className="home-mobile-topbar">
 
-              <button
-                type="button"
-                className="home-mobile-dim"
-                aria-label="Toggle dim mode"
-              >
-                ◐
-              </button>
+              <EnglishDimToggle className="home-mobile-dim" />
 
               <a
                 href="/en"

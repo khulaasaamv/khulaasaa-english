@@ -1,3 +1,4 @@
+import EnglishDimToggle from "../../components/EnglishDimToggle";
 import SiteFooter from "../../components/SiteFooter";
 const API_URL = "https://alpha.khulaasaa.com/api/galleries?language=en";
 
@@ -40,6 +41,46 @@ export default async function GalleryPage() {
   return (
     <>
       <main className="gallery-page">
+      <div className="category-mobile-topbar gallery-category-mobile-header">
+        <EnglishDimToggle className="category-mobile-dim" />
+
+        <a
+          href="/en"
+          className="category-mobile-logo-link"
+          aria-label="Khulaasaa English home"
+        >
+          <img
+            src="https://khulaasaa-english.vercel.app/logo.png"
+            alt="Khulaasaa"
+            className="category-mobile-logo"
+          />
+        </a>
+
+        <details className="category-mobile-sections">
+          <summary aria-label="Open categories">
+            ☰
+          </summary>
+
+          <nav>
+            <a href="/en">Home</a>
+            <a href="/en/latest-news">Latest News</a>
+            <a href="/en/world">World News</a>
+            <a href="/en/reports">Reports</a>
+            <a href="/en/business">Business</a>
+            <a href="/en/sports">Sports</a>
+            <a href="/en/local">Local</a>
+            <a href="/en/gallery">Gallery</a>
+
+            <a
+              href="https://www.khulaasaa.com/"
+              className="category-mobile-edition"
+            >
+              Dhivehi edition ↗
+            </a>
+          </nav>
+        </details>
+      </div>
+
       <div className="container">
 
         <div className="category-brand-header">
@@ -62,18 +103,15 @@ export default async function GalleryPage() {
           </a>
         </div>
 
-        <header className="gallery-modern-header">
-          <div>
-            <span className="eyebrow">VISUAL STORIES</span>
-            <h1>
-              Gallery<span>.</span>
-            </h1>
-          </div>
+        <a href="/en" className="category-desktop-back">← Home</a>
 
-          <p>
-            Photo stories from the Maldives and beyond.
-          </p>
-        </header>
+        <header className="category-hero-header gallery-category-header">
+  <div>
+    <h1>
+      Gallery<span>.</span>
+    </h1>
+  </div>
+</header>
 
         {!featured ? (
           <section className="gallery-live-empty">

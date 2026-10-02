@@ -11076,3 +11076,592 @@ h6,
     margin: 22px 0;
   }
 }
+/* =========================================================
+   KHULAASAA ENGLISH DIM MODE
+   ========================================================= */
+
+html.english-dim,
+html.english-dim body {
+  background: #101114 !important;
+  color: #f3f1ec !important;
+}
+
+html.english-dim body {
+  color-scheme: dark;
+}
+
+/* Main page backgrounds */
+html.english-dim .kh-front-page,
+html.english-dim .category-page,
+html.english-dim .article-page,
+html.english-dim .gallery-page,
+html.english-dim .gallery-detail-page {
+  background: #101114 !important;
+  color: #f3f1ec !important;
+}
+
+/* Headers */
+html.english-dim .site-header,
+html.english-dim .english-global-desktop-header,
+html.english-dim .english-global-masthead,
+html.english-dim .english-global-nav,
+html.english-dim .home-mobile-topbar,
+html.english-dim .category-mobile-topbar {
+  background: #15171b !important;
+  color: #f7f5f0 !important;
+  border-color: #2c2f35 !important;
+}
+
+/* Logo/brand text */
+html.english-dim .brand,
+html.english-dim .english-global-brand-text strong,
+html.english-dim .tagline,
+html.english-dim .english-global-tagline {
+  color: #f5f3ee !important;
+}
+
+/* Navigation */
+html.english-dim .desktop-nav a,
+html.english-dim .english-global-nav a,
+html.english-dim .home-mobile-sections a,
+html.english-dim .category-mobile-sections a {
+  color: #e7e4de !important;
+}
+
+html.english-dim .desktop-nav a:hover,
+html.english-dim .english-global-nav a:hover,
+html.english-dim .english-global-nav a.active {
+  color: #d89836 !important;
+}
+
+/* Headlines */
+html.english-dim h1,
+html.english-dim h2,
+html.english-dim h3,
+html.english-dim h4,
+html.english-dim h5,
+html.english-dim h6,
+html.english-dim h1 a,
+html.english-dim h2 a,
+html.english-dim h3 a {
+  color: #f7f5f0 !important;
+}
+
+/* Body copy */
+html.english-dim p,
+html.english-dim .article-body,
+html.english-dim .article-body p,
+html.english-dim .article-summary,
+html.english-dim .kh-featured-summary,
+html.english-dim .kh-home-gallery-summary {
+  color: #d8d5cf !important;
+}
+
+/* Secondary text */
+html.english-dim .article-meta,
+html.english-dim .article-meta-details,
+html.english-dim .kh-featured-time,
+html.english-dim .kh-section-card-time,
+html.english-dim .reaction-total,
+html.english-dim .comments-heading span,
+html.english-dim .gallery-detail-count {
+  color: #aaa69e !important;
+}
+
+/* Cards */
+html.english-dim .kh-section-card,
+html.english-dim .category-story-card,
+html.english-dim .article-comments,
+html.english-dim .published-comment,
+html.english-dim .gallery-modern-card,
+html.english-dim .gallery-photo-item,
+html.english-dim .kh-home-gallery-small,
+html.english-dim .kh-home-gallery-side-card,
+html.english-dim .kh-related-inline-card {
+  background: #17191d !important;
+  border-color: #2b2e34 !important;
+  color: #f3f1ec !important;
+}
+
+/* Forms */
+html.english-dim .comment-form input,
+html.english-dim .comment-form textarea {
+  background: #15171b !important;
+  border-color: #34373e !important;
+  color: #f5f3ee !important;
+}
+
+html.english-dim .comment-form input::placeholder,
+html.english-dim .comment-form textarea::placeholder {
+  color: #89857e !important;
+}
+
+/* Quotes */
+html.english-dim .article-body .kh-quote {
+  background: #191a1e !important;
+  color: #f4f1eb !important;
+  border-left-color: #d89836 !important;
+}
+
+html.english-dim .article-body .kh-quote p {
+  color: #f4f1eb !important;
+}
+
+html.english-dim .article-body .kh-quote-attribution {
+  color: #b9b4aa !important;
+}
+
+/* Social/internal previews */
+html.english-dim .kh-related-inline-card,
+html.english-dim .kh-facebook-link-card {
+  background: #17191d !important;
+  border-color: #30333a !important;
+}
+
+html.english-dim .kh-related-inline-copy h3,
+html.english-dim .kh-facebook-link-copy strong {
+  color: #f5f3ee !important;
+}
+
+html.english-dim .kh-related-inline-copy p,
+html.english-dim .kh-facebook-link-copy small {
+  color: #aaa69e !important;
+}
+
+/* Dividers */
+html.english-dim .kh-home-section,
+html.english-dim .kh-home-section-header,
+html.english-dim .category-hero-header,
+html.english-dim .comments-heading,
+html.english-dim .article-related {
+  border-color: #2b2e34 !important;
+}
+
+/* Back + share */
+html.english-dim .article-back-link,
+html.english-dim .category-desktop-back {
+  color: #bbb7af !important;
+}
+
+html.english-dim .article-share-button {
+  background: #17191d !important;
+  border-color: #34373e !important;
+  color: #e9e6df !important;
+}
+
+/* Reaction buttons */
+html.english-dim .reaction-button {
+  background: #17191d !important;
+  border-color: #34373e !important;
+  color: #ece9e2 !important;
+}
+
+html.english-dim .reaction-button.selected {
+  border-color: #d89836 !important;
+}
+
+/* Footer */
+html.english-dim footer,
+html.english-dim .site-footer {
+  background: #0c0d10 !important;
+  color: #d9d6d0 !important;
+  border-color: #292c31 !important;
+}
+
+/* Mobile dim button */
+html.english-dim .home-mobile-dim,
+html.english-dim .category-mobile-dim {
+  background: #24262b !important;
+  color: #f6f3ed !important;
+}
+
+/* Gold stays Khulaasaa gold */
+html.english-dim .eyebrow,
+html.english-dim .edition-badge,
+html.english-dim .kh-featured-kicker,
+html.english-dim .kh-section-card-category,
+html.english-dim .kh-home-gallery-label {
+  color: #d89836 !important;
+}
+/* Preferred English dim button style */
+
+.home-mobile-dim,
+.category-mobile-dim {
+  width: 48px !important;
+  height: 48px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid #e3e3e3 !important;
+  border-radius: 50% !important;
+  background: #fff !important;
+  color: #111 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,.03) !important;
+  padding: 0 !important;
+}
+
+.home-mobile-dim svg,
+.category-mobile-dim svg {
+  width: 18px !important;
+  height: 18px !important;
+  stroke-width: 1.6 !important;
+}
+
+.home-mobile-dim:hover,
+.category-mobile-dim:hover {
+  border-color: #d89836 !important;
+  color: #d89836 !important;
+}
+
+/* Dim state */
+html.english-dim .home-mobile-dim,
+html.english-dim .category-mobile-dim {
+  background: #1c1d21 !important;
+  border-color: #3a3c42 !important;
+  color: #f5f3ee !important;
+}
+/* Original Khulaasaa dim icon */
+
+.english-dim-symbol {
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 400;
+  color: #111;
+}
+
+html.english-dim .english-dim-symbol {
+  color: #f5f3ee;
+}
+/* Make Khulaasaa logo white in English dim mode */
+
+html.english-dim .khulaasaa-logo,
+html.english-dim .home-mobile-logo,
+html.english-dim .category-brand-logo,
+html.english-dim .category-mobile-logo,
+html.english-dim .article-desktop-logo,
+html.english-dim .article-mobile-logo,
+html.english-dim .english-global-logo {
+  filter: brightness(0) invert(1) !important;
+}
+
+/* Dim mode logo only — do not alter header layout */
+html.english-dim .home-mobile-logo,
+html.english-dim .category-mobile-logo,
+html.english-dim .khulaasaa-logo,
+html.english-dim .english-global-logo {
+  filter: none !important;
+  content: url("/logo-dim.png") !important;
+}
+
+/* Dim-mode category/menu button only */
+html.english-dim .home-mobile-sections summary,
+html.english-dim .category-mobile-sections summary {
+  background: #1c1d21 !important;
+  color: #f5f3ee !important;
+  border-color: #3a3c42 !important;
+  box-shadow: none !important;
+}
+
+/* Keep menu icon visible */
+html.english-dim .home-mobile-sections summary svg,
+html.english-dim .category-mobile-sections summary svg {
+  color: #f5f3ee !important;
+  stroke: currentColor !important;
+}
+
+/* Match dim button size to category/menu button */
+
+@media (max-width: 760px) {
+  .home-mobile-dim,
+  .category-mobile-dim {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+  }
+
+  .english-dim-symbol {
+    font-size: 14px !important;
+    line-height: 1 !important;
+  }
+}
+/* Fix footer readability in English dim mode */
+
+html.english-dim footer,
+html.english-dim .site-footer {
+  background: #0c0d10 !important;
+  color: #e8e5df !important;
+}
+
+html.english-dim footer *,
+html.english-dim .site-footer * {
+  border-color: #34373d;
+}
+
+html.english-dim footer p,
+html.english-dim footer span,
+html.english-dim footer strong,
+html.english-dim footer div,
+html.english-dim .site-footer p,
+html.english-dim .site-footer span,
+html.english-dim .site-footer strong,
+html.english-dim .site-footer div {
+  color: #d8d5cf !important;
+}
+
+html.english-dim footer a,
+html.english-dim .site-footer a {
+  color: #e7e4de !important;
+}
+
+html.english-dim footer a:hover,
+html.english-dim .site-footer a:hover {
+  color: #d89836 !important;
+}
+
+html.english-dim footer .footer-label,
+html.english-dim .site-footer .footer-label {
+  color: #a9a59d !important;
+}
+
+html.english-dim footer .footer-contact-label,
+html.english-dim .site-footer .footer-contact-label {
+  color: #b8b4ac !important;
+}
+
+html.english-dim footer .footer-contact-value,
+html.english-dim .site-footer .footer-contact-value {
+  color: #f0ede7 !important;
+}
+
+html.english-dim footer .footer-copyright,
+html.english-dim .site-footer .footer-copyright {
+  color: #8f8b84 !important;
+}
+
+/* Keep social icons visible */
+html.english-dim footer img,
+html.english-dim .site-footer img,
+html.english-dim footer svg,
+html.english-dim .site-footer svg {
+  opacity: 1 !important;
+}
+/* Refine footer colors in English dim mode */
+
+html.english-dim footer,
+html.english-dim .site-footer {
+  background: #0d0f12 !important;
+}
+
+/* Main footer heading */
+html.english-dim footer h2,
+html.english-dim footer h3,
+html.english-dim .site-footer h2,
+html.english-dim .site-footer h3 {
+  color: #f2f0eb !important;
+}
+
+/* Contact labels */
+html.english-dim footer strong,
+html.english-dim .site-footer strong {
+  color: #c6c2bb !important;
+}
+
+/* Contact values */
+html.english-dim footer p,
+html.english-dim footer span,
+html.english-dim .site-footer p,
+html.english-dim .site-footer span {
+  color: #aaa69f !important;
+}
+
+/* Footer policy/navigation links */
+html.english-dim footer a,
+html.english-dim .site-footer a {
+  color: #8e8a84 !important;
+  transition: color .2s ease;
+}
+
+html.english-dim footer a:hover,
+html.english-dim .site-footer a:hover {
+  color: #d89836 !important;
+}
+
+/* Copyright */
+html.english-dim footer .footer-copyright,
+html.english-dim .site-footer .footer-copyright {
+  color: #77736d !important;
+}
+
+/* Separators */
+html.english-dim footer hr,
+html.english-dim .site-footer hr {
+  border-color: #34363a !important;
+  opacity: .75;
+}
+/* Make footer policy links clearly visible in dim mode */
+
+html.english-dim footer .footer-links a,
+html.english-dim .site-footer .footer-links a,
+html.english-dim footer nav a,
+html.english-dim .site-footer nav a {
+  color: #b8b4ad !important;
+  opacity: 1 !important;
+}
+
+html.english-dim footer .footer-links a:hover,
+html.english-dim .site-footer .footer-links a:hover,
+html.english-dim footer nav a:hover,
+html.english-dim .site-footer nav a:hover {
+  color: #d89836 !important;
+}
+
+/* FORCE footer links visible in English dim mode */
+
+html.english-dim footer a,
+html.english-dim .site-footer a,
+html.english-dim footer a:visited,
+html.english-dim .site-footer a:visited {
+  color: #c7c3bc !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+html.english-dim footer a:hover,
+html.english-dim .site-footer a:hover {
+  color: #d89836 !important;
+}
+
+/* Slightly brighter for policy/navigation row */
+html.english-dim footer ul a,
+html.english-dim .site-footer ul a,
+html.english-dim footer nav a,
+html.english-dim .site-footer nav a {
+  color: #d0ccc5 !important;
+}
+
+/* Footer policy buttons visible in English dim mode */
+
+html.english-dim .footer-policy-links button {
+  color: #b8b4ad !important;
+  opacity: 1 !important;
+  background: transparent !important;
+  border: 0 !important;
+  cursor: pointer !important;
+  transition: color .2s ease !important;
+}
+
+html.english-dim .footer-policy-links button:hover {
+  color: #d89836 !important;
+}
+
+/* Mobile category menu in English dim mode */
+
+html.english-dim .home-mobile-sections nav,
+html.english-dim .category-mobile-sections nav {
+  background: #17191d !important;
+  border-color: #34373d !important;
+  box-shadow: 0 18px 45px rgba(0,0,0,.42) !important;
+}
+
+/* Menu items */
+html.english-dim .home-mobile-sections nav a,
+html.english-dim .category-mobile-sections nav a {
+  color: #d8d5cf !important;
+  background: transparent !important;
+  border-color: #2c2f35 !important;
+}
+
+/* Hover / active feel */
+html.english-dim .home-mobile-sections nav a:hover,
+html.english-dim .category-mobile-sections nav a:hover {
+  color: #d89836 !important;
+  background: #202228 !important;
+}
+
+/* Dhivehi edition row */
+html.english-dim .home-mobile-dhivehi,
+html.english-dim .category-mobile-edition {
+  color: #b8b4ad !important;
+  border-top-color: #34373d !important;
+}
+
+/* Menu button itself */
+html.english-dim .home-mobile-sections summary,
+html.english-dim .category-mobile-sections summary {
+  background: #1c1d21 !important;
+  color: #f3f1ec !important;
+  border-color: #45484f !important;
+}
+
+/* Remove default white details background if present */
+html.english-dim .home-mobile-sections,
+html.english-dim .category-mobile-sections {
+  background: transparent !important;
+  color: #f3f1ec !important;
+}
+/* Gallery header matches category pages */
+
+.gallery-category-header {
+  padding: 16px 0 14px !important;
+  margin: 0 0 18px !important;
+  min-height: 0 !important;
+  border-bottom: 1px solid #e8e3db !important;
+}
+
+.gallery-category-header h1 {
+  margin: 0 !important;
+  font-size: 42px !important;
+  line-height: 1 !important;
+  letter-spacing: -0.035em !important;
+}
+
+.gallery-category-header h1 span {
+  color: #b87812 !important;
+}
+
+@media (max-width: 760px) {
+  .gallery-category-header {
+    padding: 12px 0 12px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .gallery-category-header h1 {
+    font-size: 32px !important;
+  }
+}
+/* Gallery mobile header = same as category pages */
+
+@media (max-width: 760px) {
+  .gallery-page .category-brand-header {
+    display: none !important;
+  }
+
+  .gallery-category-mobile-header {
+    display: flex !important;
+  }
+
+  .gallery-page .category-desktop-back {
+    margin-top: 14px !important;
+  }
+
+  .gallery-page .gallery-category-header {
+    padding: 12px 0 !important;
+    margin-bottom: 14px !important;
+  }
+
+  .gallery-page .gallery-category-header h1 {
+    font-size: 32px !important;
+    line-height: 1 !important;
+  }
+}
+
+@media (min-width: 761px) {
+  .gallery-category-mobile-header {
+    display: none !important;
+  }
+}

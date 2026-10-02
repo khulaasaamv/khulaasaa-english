@@ -1,3 +1,4 @@
+import EnglishDimToggle from "../../components/EnglishDimToggle";
 import { notFound } from "next/navigation";
 import SiteFooter from "../../components/SiteFooter";
 import { getEnglishArticles } from "../../../lib/englishApi";
@@ -128,13 +129,7 @@ export default async function CategoryPage({ params }) {
   return (
     <>
 <div className="category-mobile-topbar">
-  <button
-    type="button"
-    className="category-mobile-dim"
-    aria-label="Toggle dim mode"
-  >
-    ◐
-  </button>
+  <EnglishDimToggle className="category-mobile-dim" />
 
   <a
     href="/en"
