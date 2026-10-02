@@ -4,10 +4,12 @@ import { getEnglishArticles } from "../../lib/englishApi";
 
 const navItems = [
   { name: "Home", href: "/en" },
-  { name: "National", href: "/en/national" },
+  { name: "Latest News", href: "/en/latest-news" },
+  { name: "World News", href: "/en/world" },
+  { name: "Reports", href: "/en/reports" },
   { name: "Business", href: "/en/business" },
-  { name: "World", href: "/en/world" },
   { name: "Sports", href: "/en/sports" },
+  { name: "Local", href: "/en/local" },
   { name: "Gallery", href: "/en/gallery" },
 ];
 
@@ -26,6 +28,10 @@ function articleImage(article) {
 
 function articleCategory(article) {
   return article?.categories?.[0]?.name || "News";
+}
+
+function normalizeCategory(value = "") {
+  return value.trim().toLowerCase();
 }
 
 function timeAgo(value) {
@@ -74,9 +80,14 @@ function Header() {
             >
               <img
                 src="https://khulaasaa-english.vercel.app/logo.png"
-                alt="Khulaasaa English"
+                alt="Khulaasaa"
                 className="khulaasaa-logo"
               />
+
+              <div className="brand-text-wrap">
+                <span className="brand">KHULAASAA</span>
+                <span className="edition-badge">ENGLISH</span>
+              </div>
             </a>
           </div>
 
@@ -102,28 +113,6 @@ function Header() {
                 </a>
               ))}
             </nav>
-
-            <details className="mobile-menu">
-              <summary>
-                Sections <span>＋</span>
-              </summary>
-
-              <nav>
-                <a
-                  href="https://www.khulaasaa.com/"
-                  className="mobile-edition-switch"
-                >
-                  <span>Switch to Dhivehi edition</span>
-                  <span className="edition-arrow">↗</span>
-                </a>
-
-                {navItems.map((item) => (
-                  <a key={item.href} href={item.href}>
-                    {item.name}
-                  </a>
-                ))}
-              </nav>
-            </details>
           </div>
         </div>
       </header>
@@ -131,8 +120,64 @@ function Header() {
   );
 }
 
+function StoryCard({ story }) {
+  return (
+    <article className="kh-section-card">
+      <a href={`/en/post/${story.id}`} className="kh-section-image-link">
+        {articleImage(story) ? (
+          <img
+            src={articleImage(story)}
+            alt={articleHeadline(story)}
+            className="kh-section-image"
+          />
+        ) : (
+          <div className="kh-section-placeholder">K.</div>
+        )}
+      </a>
+
+      <span className="kh-section-card-category">
+        {articleCategory(story)}
+      </span>
+
+      <h3>
+        <a href={`/en/post/${story.id}`}>
+          {articleHeadline(story)}
+        </a>
+      </h3>
+
+      <span className="kh-section-card-time">
+        {timeAgo(story.published_at)}
+      </span>
+    </article>
+  );
+}
+
+function NewsSection({ title, articles, href }) {
+  if (!articles.length) return null;
+
+  return (
+    <section className="kh-home-section">
+      <div className="kh-home-section-header">
+        <h2>{title}</h2>
+
+        {href && (
+          <a href={href}>
+            View all →
+          </a>
+        )}
+      </div>
+
+      <div className="kh-home-section-grid">
+        {articles.slice(0, 4).map((story) => (
+          <StoryCard key={story.id} story={story} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default async function EnglishHome() {
-  const articles = await getEnglishArticles(30);
+  const articles = await getEnglishArticles(60);
 
   const featuredArticles = articles
     .filter((article) => Boolean(article.is_featured))
@@ -148,13 +193,44 @@ export default async function EnglishHome() {
     ? articles.filter((article) => article.id !== lead.id)
     : articles;
 
-  const sideStories = lead
-    ? remainingArticles.slice(0, 3)
-    : [];
+  const latestNews = lead
+    ? remainingArticles.slice(0, 4)
+    : articles.slice(0, 4);
 
-  const moreStories = lead
-    ? remainingArticles.slice(3, 11)
-    : remainingArticles.slice(0, 12);
+  const featuredCards = featuredArticles
+    .filter((article) => article.id !== lead?.id)
+    .slice(0, 4);
+
+  const categoryMatches = (names) =>
+    articles.filter((article) => {
+      const current = normalizeCategory(articleCategory(article));
+      return names.some((name) => current === normalizeCategory(name));
+    });
+
+  const worldNews = categoryMatches([
+    "World",
+    "World News",
+    "World news",
+  ]);
+
+  const reports = categoryMatches([
+    "Report",
+    "Reports",
+  ]);
+
+  const business = categoryMatches([
+    "Business",
+  ]);
+
+  const sports = categoryMatches([
+    "Sports",
+  ]);
+
+  const local = categoryMatches([
+    "Local",
+    "National",
+    "News",
+  ]);
 
   return (
     <>
@@ -163,35 +239,31 @@ export default async function EnglishHome() {
       <main className="kh-front-page">
         <div className="container">
 
-          {lead ? (
-            <section className="kh-front-lead">
-
-              <div className="kh-front-lead-copy">
-                <a
-                  href={`/en/${articleCategory(lead).toLowerCase()}`}
-                  className="kh-front-kicker"
-                >
+          {lead && (
+            <section className="kh-featured-block">
+              <div className="kh-featured-copy">
+                <span className="kh-featured-kicker">
                   {articleCategory(lead)}
-                </a>
+                </span>
 
-                <h1 className="kh-front-headline">
+                <h1>
                   <a href={`/en/post/${lead.id}`}>
                     {articleHeadline(lead)}
                   </a>
                 </h1>
 
                 {lead.summary && (
-                  <p className="kh-front-summary">
+                  <p className="kh-featured-summary">
                     {lead.summary}
                   </p>
                 )}
 
-                <div className="kh-front-time">
+                <span className="kh-featured-time">
                   {timeAgo(lead.published_at)}
-                </div>
+                </span>
               </div>
 
-              <div className="kh-front-lead-media">
+              <div className="kh-featured-image">
                 <a href={`/en/post/${lead.id}`}>
                   {articleImage(lead) ? (
                     <img
@@ -199,102 +271,91 @@ export default async function EnglishHome() {
                       alt={articleHeadline(lead)}
                     />
                   ) : (
-                    <div className="kh-front-image-placeholder">
+                    <div className="kh-featured-placeholder">
                       K.
                     </div>
                   )}
                 </a>
 
-                {lead.caption && (
-                  <p className="kh-front-caption">
-                    {lead.caption}
+                {lead.image_caption && (
+                  <p className="kh-featured-caption">
+                    {lead.image_caption}
                   </p>
                 )}
               </div>
 
-              <aside className="kh-front-side">
-                <div className="kh-front-side-heading">
-                  Latest updates
+              <aside className="kh-featured-side">
+                <div className="kh-featured-side-title">
+                  Latest News
                 </div>
 
-                {sideStories.length > 0 ? (
-                  <div className="kh-front-side-list">
-                    {sideStories.map((story) => (
-                      <article
-                        key={story.id}
-                        className="kh-front-side-story"
-                      >
-                        <h2>
-                          <a href={`/en/post/${story.id}`}>
-                            {articleHeadline(story)}
-                          </a>
-                        </h2>
+                {latestNews.map((story) => (
+                  <article key={story.id}>
+                    <h2>
+                      <a href={`/en/post/${story.id}`}>
+                        {articleHeadline(story)}
+                      </a>
+                    </h2>
 
-                        <span>
-                          {timeAgo(story.published_at)}
-                        </span>
-                      </article>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="kh-front-empty">
-                    More updates coming soon.
-                  </p>
-                )}
-              </aside>
-
-            </section>
-          ) : null}
-
-          {moreStories.length > 0 && (
-            <section className="kh-front-more">
-              <div className="kh-front-section-title">
-                <h2>{lead ? "More Top Stories" : "Top Stories"}</h2>
-              </div>
-
-              <div className="kh-front-more-grid">
-                {moreStories.map((story) => (
-                  <article
-                    className="kh-front-card"
-                    key={story.id}
-                  >
-                    <a
-                      href={`/en/post/${story.id}`}
-                      className="kh-front-card-image-link"
-                    >
-                      {articleImage(story) ? (
-                        <img
-                          src={articleImage(story)}
-                          alt={articleHeadline(story)}
-                          className="kh-front-card-image"
-                        />
-                      ) : (
-                        <div className="kh-front-card-placeholder">
-                          K.
-                        </div>
-                      )}
-                    </a>
-
-                    <div className="kh-front-card-content">
-                      <span className="kh-front-card-category">
-                        {articleCategory(story)}
-                      </span>
-
-                      <h3>
-                        <a href={`/en/post/${story.id}`}>
-                          {articleHeadline(story)}
-                        </a>
-                      </h3>
-
-                      <span className="kh-front-card-time">
-                        {timeAgo(story.published_at)}
-                      </span>
-                    </div>
+                    <span>
+                      {timeAgo(story.published_at)}
+                    </span>
                   </article>
                 ))}
-              </div>
+              </aside>
             </section>
           )}
+
+          <NewsSection
+            title="Featured Articles"
+            articles={featuredCards}
+          />
+
+          <NewsSection
+            title="World News"
+            articles={worldNews}
+            href="/en/world"
+          />
+
+          <NewsSection
+            title="Reports"
+            articles={reports}
+            href="/en/reports"
+          />
+
+          <NewsSection
+            title="Business"
+            articles={business}
+            href="/en/business"
+          />
+
+          <NewsSection
+            title="Sports"
+            articles={sports}
+            href="/en/sports"
+          />
+
+          <NewsSection
+            title="Local"
+            articles={local}
+            href="/en/local"
+          />
+
+          <section className="kh-home-section kh-gallery-section">
+            <div className="kh-home-section-header">
+              <h2>Gallery</h2>
+
+              <a href="/en/gallery">
+                View gallery →
+              </a>
+            </div>
+
+            <div className="kh-gallery-placeholder">
+              <a href="/en/gallery">
+                View the latest Khulaasaa photo galleries
+              </a>
+            </div>
+          </section>
 
         </div>
       </main>

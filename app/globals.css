@@ -6706,3 +6706,607 @@ h6,
     color: #7a7a7a;
   }
 }
+/* Khulaasaa English branding beside logo */
+.brand-logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+}
+
+.brand-text-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brand {
+  color: #111;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.edition-badge {
+  margin-top: 6px;
+  color: #b97812;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.34em;
+}
+
+@media (max-width: 700px) {
+  .brand {
+    font-size: 22px;
+  }
+
+  .edition-badge {
+    font-size: 9px;
+    letter-spacing: 0.27em;
+  }
+
+  .brand-logo-link {
+    gap: 10px;
+  }
+}
+/* English masthead logo */
+.khulaasaa-logo {
+  width: 430px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.brand-logo-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (max-width: 700px) {
+  .khulaasaa-logo {
+    width: 260px;
+  }
+}
+/* Fix full Khulaasaa English masthead logo */
+.masthead {
+  overflow: visible !important;
+}
+
+.brand-wrap {
+  width: auto !important;
+  max-width: none !important;
+  flex: 0 0 auto !important;
+  overflow: visible !important;
+}
+
+.brand-logo-link {
+  width: auto !important;
+  max-width: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  overflow: visible !important;
+}
+
+.khulaasaa-logo {
+  display: block !important;
+  width: auto !important;
+  height: 72px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 700px) {
+  .khulaasaa-logo {
+    height: 48px !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+}
+/* FINAL ENGLISH MASTHEAD BRANDING */
+.masthead .brand-wrap {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+  position: static !important;
+  transform: none !important;
+}
+
+.masthead .brand-logo-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 16px !important;
+  width: auto !important;
+  max-width: none !important;
+  overflow: visible !important;
+  text-decoration: none !important;
+}
+
+.masthead .khulaasaa-logo {
+  width: 62px !important;
+  height: 62px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  flex-shrink: 0 !important;
+}
+
+.masthead .brand-text-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  margin: 0 !important;
+}
+
+.masthead .brand {
+  color: #111 !important;
+  font-size: 34px !important;
+  line-height: 0.95 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.035em !important;
+}
+
+.masthead .edition-badge {
+  display: block !important;
+  margin-top: 7px !important;
+  color: #b87916 !important;
+  font-size: 10px !important;
+  line-height: 1 !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.34em !important;
+}
+
+@media (max-width: 700px) {
+  .masthead .khulaasaa-logo {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .masthead .brand {
+    font-size: 22px !important;
+  }
+
+  .masthead .edition-badge {
+    font-size: 8px !important;
+    margin-top: 5px !important;
+    letter-spacing: 0.27em !important;
+  }
+
+  .masthead .brand-logo-link {
+    gap: 10px !important;
+  }
+}
+/* =========================================================
+   KHULAASAA ENGLISH FEATURED FRONT PAGE
+   ========================================================= */
+
+.kh-featured-block {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.92fr) minmax(500px, 1.62fr) minmax(240px, 0.78fr);
+  gap: 28px;
+  align-items: start;
+  padding: 30px 0 34px;
+  border-top: 1px solid #d8d8d8;
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.kh-featured-kicker {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #b87812;
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.kh-featured-kicker::after {
+  content: " ›";
+}
+
+.kh-featured-copy h1 {
+  margin: 0;
+  font-size: clamp(30px, 2.45vw, 42px);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  font-weight: 750;
+}
+
+.kh-featured-copy h1 a {
+  color: #111;
+  text-decoration: none;
+}
+
+.kh-featured-copy h1 a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.kh-featured-summary {
+  margin: 18px 0 0;
+  color: #3d3d3d;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.kh-featured-time {
+  display: block;
+  margin-top: 10px;
+  color: #777;
+  font-size: 12px;
+}
+
+.kh-featured-image img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: #eee;
+}
+
+.kh-featured-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-items: center;
+  background: #f2f2f2;
+  font-size: 64px;
+  font-weight: 800;
+}
+
+.kh-featured-caption {
+  margin: 7px 0 0;
+  color: #777;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.kh-featured-side {
+  border-left: 1px solid #ddd;
+  padding-left: 24px;
+}
+
+.kh-featured-side article {
+  padding: 18px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.kh-featured-side article:first-child {
+  padding-top: 0;
+}
+
+.kh-featured-side article:last-child {
+  border-bottom: 0;
+}
+
+.kh-featured-side h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+}
+
+.kh-featured-side h2 a {
+  color: #111;
+  text-decoration: none;
+}
+
+.kh-featured-side h2 a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.kh-featured-side span {
+  color: #777;
+  font-size: 12px;
+}
+
+/* More top stories */
+.kh-front-more {
+  padding: 30px 0 50px;
+}
+
+.kh-front-section-title {
+  margin-bottom: 18px;
+}
+
+.kh-front-section-title h2 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 750;
+}
+
+.kh-front-more-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.kh-front-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+}
+
+.kh-front-card-category {
+  display: block;
+  margin-top: 10px;
+  color: #b87812;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.kh-front-card h3 {
+  margin: 6px 0 0;
+  font-size: 18px;
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+}
+
+.kh-front-card h3 a {
+  color: #111;
+  text-decoration: none;
+}
+
+.kh-front-card-time {
+  display: block;
+  margin-top: 8px;
+  color: #777;
+  font-size: 12px;
+}
+
+@media (max-width: 1050px) {
+  .kh-featured-block {
+    grid-template-columns: 0.9fr 1.45fr;
+  }
+
+  .kh-featured-side {
+    grid-column: 1 / -1;
+    border-left: 0;
+    border-top: 1px solid #ddd;
+    padding: 22px 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .kh-featured-side article {
+    padding: 0 0 0 20px;
+    border-bottom: 0;
+    border-left: 1px solid #ddd;
+  }
+
+  .kh-featured-side article:first-child {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .kh-front-more-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .kh-featured-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 18px;
+  }
+
+  .kh-featured-copy {
+    order: 1;
+    padding: 0 16px 18px;
+  }
+
+  .kh-featured-image {
+    order: 2;
+    width: 100%;
+  }
+
+  .kh-featured-side {
+    order: 3;
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 18px 16px 0;
+  }
+
+  .kh-featured-side article,
+  .kh-featured-side article:first-child {
+    padding: 16px 0;
+    border-left: 0;
+    border-top: 1px solid #ddd;
+  }
+
+  .kh-featured-copy h1 {
+    font-size: 30px;
+  }
+
+  .kh-featured-summary {
+    font-size: 14px;
+  }
+
+  .kh-front-more {
+    padding: 26px 16px 44px;
+  }
+
+  .kh-front-more-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 12px;
+  }
+
+  .kh-front-card h3 {
+    font-size: 16px;
+  }
+}
+/* =========================================================
+   ENGLISH HOMEPAGE SECTIONS
+   ========================================================= */
+
+.kh-home-section {
+  padding: 32px 0 38px;
+  border-bottom: 1px solid #ddd;
+}
+
+.kh-home-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.kh-home-section-header h2 {
+  margin: 0;
+  font-size: 25px;
+  line-height: 1.2;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.kh-home-section-header a {
+  color: #777;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.kh-home-section-header a:hover {
+  color: #b87812;
+}
+
+.kh-home-section-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.kh-section-card {
+  min-width: 0;
+}
+
+.kh-section-image-link {
+  display: block;
+  overflow: hidden;
+  background: #eee;
+}
+
+.kh-section-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.kh-section-placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #eee;
+  font-size: 38px;
+  font-weight: 800;
+}
+
+.kh-section-card-category {
+  display: block;
+  margin-top: 10px;
+  color: #b87812;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.kh-section-card h3 {
+  margin: 6px 0 0;
+  font-size: 18px;
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+}
+
+.kh-section-card h3 a {
+  color: #111;
+  text-decoration: none;
+}
+
+.kh-section-card h3 a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.kh-section-card-time {
+  display: block;
+  margin-top: 8px;
+  color: #777;
+  font-size: 12px;
+}
+
+.kh-gallery-section {
+  padding-bottom: 46px;
+}
+
+.kh-gallery-placeholder {
+  min-height: 170px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #ddd;
+  background: #f7f7f7;
+}
+
+.kh-gallery-placeholder a {
+  color: #111;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  .kh-home-section-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .kh-home-section {
+    padding: 25px 16px 30px;
+  }
+
+  .kh-home-section-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 12px;
+  }
+
+  .kh-home-section-header h2 {
+    font-size: 21px;
+  }
+
+  .kh-section-card h3 {
+    font-size: 16px;
+  }
+}
+.kh-featured-side-title {
+  margin: 0 0 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ddd;
+  font-size: 21px;
+  line-height: 1.2;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.kh-featured-side-title::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 9px;
+  border-radius: 50%;
+  background: #b87812;
+  vertical-align: 3px;
+}
