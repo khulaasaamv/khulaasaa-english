@@ -4,6 +4,7 @@ import ArticleReactions from "../../../components/ArticleReactions";
 import ArticleComments from "../../../components/ArticleComments";
 import PublishedTime from "../../../components/PublishedTime";
 import ArticleBackLink from "../../../components/ArticleBackLink";
+import ArticleDesktopHeader from "../../../components/ArticleDesktopHeader";
 
 import {
   getEnglishArticle,
@@ -110,6 +111,7 @@ export default async function ArticlePage({ params }) {
 
   return (
     <>
+      <ArticleDesktopHeader />
       <main className="article-page">
         <div className="container article-container">
 
