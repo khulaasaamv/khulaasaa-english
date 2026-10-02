@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import SiteFooter from "../../../components/SiteFooter";
 import ArticleReactions from "../../../components/ArticleReactions";
 import ArticleComments from "../../../components/ArticleComments";
+import ArticleBody from "../../../components/ArticleBody";
 import PublishedTime from "../../../components/PublishedTime";
 import ArticleBackLink from "../../../components/ArticleBackLink";
 import ArticleShareButton from "../../../components/ArticleShareButton";
@@ -208,14 +209,7 @@ export default async function ArticlePage({ params }) {
               </p>
             )}
 
-            <div
-              className="article-body"
-              dangerouslySetInnerHTML={{
-                __html:
-                  story.content ||
-                  "<p>Article content is not available.</p>",
-              }}
-            />
+            <ArticleBody html={story.content} />
 
             <section className="article-engagement">
               <ArticleReactions articleId={story.id} />

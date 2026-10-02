@@ -10609,3 +10609,470 @@ h6,
     grid-template-columns: 1fr;
   }
 }
+/* Modern Khulaasaa article quotes */
+
+.article-body blockquote {
+  position: relative;
+  margin: 2rem 0;
+  padding: 1.5rem 1.5rem 1.25rem 1.75rem;
+  background: #faf8f3;
+  border-left: 4px solid #d89836;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.article-body blockquote::before {
+  content: "“";
+  position: absolute;
+  top: 10px;
+  left: 18px;
+  font-size: 3.5rem;
+  line-height: 1;
+  font-weight: 700;
+  color: rgba(216, 152, 54, 0.18);
+}
+
+.article-body blockquote p {
+  margin: 0;
+  padding-left: 1.5rem;
+  font-size: 1.35rem;
+  line-height: 1.65;
+  font-weight: 600;
+  color: #1d1d1d;
+  font-style: italic;
+}
+
+.article-body blockquote cite,
+.article-body blockquote footer {
+  display: block;
+  margin-top: 0.9rem;
+  padding-left: 1.5rem;
+  font-size: 0.95rem;
+  font-style: normal;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+@media (max-width: 760px) {
+  .article-body blockquote {
+    margin: 1.5rem 0;
+    padding: 1.2rem 1rem 1rem 1.1rem;
+    border-radius: 14px;
+  }
+
+  .article-body blockquote::before {
+    left: 12px;
+    top: 8px;
+    font-size: 2.8rem;
+  }
+
+  .article-body blockquote p {
+    padding-left: 1.1rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .article-body blockquote cite,
+  .article-body blockquote footer {
+    padding-left: 1.1rem;
+    font-size: 0.88rem;
+  }
+}
+/* Quote attribution: second consecutive blockquote = speaker */
+
+.article-body blockquote + blockquote {
+  margin-top: -2rem !important;
+  padding-top: 0 !important;
+  padding-bottom: 1.25rem !important;
+  background: #faf8f3 !important;
+  border-left: 4px solid #d89836 !important;
+  border-radius: 0 0 18px 18px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,.04) !important;
+}
+
+.article-body blockquote:has(+ blockquote) {
+  margin-bottom: 0 !important;
+  padding-bottom: .7rem !important;
+  border-radius: 18px 18px 0 0 !important;
+  box-shadow: none !important;
+}
+
+.article-body blockquote + blockquote::before {
+  content: none !important;
+}
+
+.article-body blockquote + blockquote p {
+  position: relative;
+  margin: 0 !important;
+  padding-left: 1.5rem !important;
+  color: #6b6257 !important;
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+}
+
+.article-body blockquote + blockquote p::before {
+  content: "— ";
+  color: #d89836;
+  font-weight: 800;
+}
+
+@media (max-width: 760px) {
+  .article-body blockquote + blockquote {
+    margin-top: -1.5rem !important;
+    border-radius: 0 0 14px 14px !important;
+  }
+
+  .article-body blockquote:has(+ blockquote) {
+    border-radius: 14px 14px 0 0 !important;
+  }
+
+  .article-body blockquote + blockquote p {
+    padding-left: 1.1rem !important;
+    font-size: 13px !important;
+  }
+}
+/* Final Khulaasaa pull quote */
+
+.article-body .kh-quote {
+  position: relative !important;
+  margin: 32px 0 !important;
+  padding: 26px 30px 22px 34px !important;
+  border: 0 !important;
+  border-left: 4px solid #d89836 !important;
+  border-radius: 0 16px 16px 0 !important;
+  background: #faf8f3 !important;
+  box-shadow: none !important;
+}
+
+.article-body .kh-quote::before {
+  content: "“" !important;
+  position: absolute;
+  top: 8px;
+  left: 20px;
+  color: rgba(216, 152, 54, .22);
+  font-family: Georgia, serif;
+  font-size: 48px;
+  line-height: 1;
+}
+
+.article-body .kh-quote p {
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #171717 !important;
+  font-family: inherit !important;
+  font-size: 20px !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  line-height: 1.55 !important;
+}
+
+.article-body .kh-quote-attribution {
+  margin-top: 14px;
+  color: #686158;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.article-body .kh-quote-attribution::before {
+  content: "— ";
+  color: #d89836;
+}
+
+@media (max-width: 760px) {
+  .article-body .kh-quote {
+    margin: 24px 0 !important;
+    padding: 22px 20px 18px 24px !important;
+  }
+
+  .article-body .kh-quote p {
+    font-size: 17px !important;
+  }
+
+  .article-body .kh-quote-attribution {
+    font-size: 13px;
+  }
+}
+/* Instagram embeds inside English articles */
+
+.kh-instagram-embed {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 32px 0;
+}
+
+.kh-instagram-embed .instagram-media {
+  width: 100% !important;
+  max-width: 540px !important;
+  min-width: 0 !important;
+  margin: 0 auto !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+}
+
+@media (max-width: 760px) {
+  .kh-instagram-embed {
+    margin: 24px 0;
+  }
+
+  .kh-instagram-embed .instagram-media {
+    max-width: 100% !important;
+  }
+}
+/* Inline Khulaasaa article preview */
+
+.kh-related-inline-card {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 0;
+  margin: 30px 0;
+  overflow: hidden;
+  border: 1px solid #e6e1d8;
+  border-radius: 14px;
+  background: #fff;
+  color: #111;
+  text-decoration: none;
+  transition:
+    transform .22s ease,
+    box-shadow .22s ease;
+}
+
+.kh-related-inline-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0,0,0,.07);
+}
+
+.kh-related-inline-image {
+  min-height: 150px;
+  overflow: hidden;
+  background: #eee;
+}
+
+.kh-related-inline-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .35s ease;
+}
+
+.kh-related-inline-card:hover
+.kh-related-inline-image img {
+  transform: scale(1.04);
+}
+
+.kh-related-inline-copy {
+  padding: 18px 20px;
+}
+
+.kh-related-inline-label {
+  color: #b87812;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.kh-related-inline-copy h3 {
+  margin: 7px 0 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 750;
+  letter-spacing: -.02em;
+}
+
+.kh-related-inline-copy p {
+  margin: 0 0 12px !important;
+  color: #625c54;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+}
+
+.kh-related-inline-read {
+  color: #b87812;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .kh-related-inline-card {
+    grid-template-columns: 110px minmax(0, 1fr);
+    margin: 22px 0;
+  }
+
+  .kh-related-inline-image {
+    min-height: 120px;
+  }
+
+  .kh-related-inline-copy {
+    padding: 13px 14px;
+  }
+
+  .kh-related-inline-copy h3 {
+    font-size: 16px;
+  }
+
+  .kh-related-inline-copy p {
+    display: none;
+  }
+}
+/* Facebook embeds inside English articles */
+
+.kh-facebook-embed {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 32px 0;
+  overflow: hidden;
+}
+
+.kh-facebook-embed .fb-post,
+.kh-facebook-embed .fb-video {
+  max-width: 100%;
+}
+
+@media (max-width: 760px) {
+  .kh-facebook-embed {
+    margin: 24px 0;
+  }
+
+  .kh-facebook-embed iframe {
+    max-width: 100% !important;
+  }
+}
+/* Facebook share-link fallback card */
+
+.kh-facebook-link-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 28px 0;
+  padding: 18px 20px;
+  border: 1px solid #dfe3e8;
+  border-radius: 14px;
+  background: #fff;
+  color: #111;
+  text-decoration: none;
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    border-color .2s ease;
+}
+
+.kh-facebook-link-card:hover {
+  transform: translateY(-2px);
+  border-color: #b9c7dc;
+  box-shadow: 0 10px 28px rgba(0,0,0,.06);
+}
+
+.kh-facebook-link-icon {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #1877f2;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.kh-facebook-link-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.kh-facebook-link-copy > span {
+  color: #1877f2;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.kh-facebook-link-copy strong {
+  margin-top: 3px;
+  font-size: 17px;
+  line-height: 1.3;
+}
+
+.kh-facebook-link-copy small {
+  margin-top: 4px;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+@media (max-width: 760px) {
+  .kh-facebook-link-card {
+    gap: 12px;
+    padding: 15px;
+  }
+
+  .kh-facebook-link-icon {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+    font-size: 24px;
+  }
+
+  .kh-facebook-link-copy strong {
+    font-size: 15px;
+  }
+}
+/* YouTube embeds inside English articles */
+
+.kh-youtube-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 30px 0;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #000;
+}
+
+.kh-youtube-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .kh-youtube-embed {
+    margin: 22px 0;
+    border-radius: 10px;
+  }
+}
+/* X / Twitter embeds inside English articles */
+
+.kh-x-embed {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.kh-x-embed .twitter-tweet {
+  margin: 0 auto !important;
+  max-width: 550px !important;
+  width: 100% !important;
+}
+
+@media (max-width: 760px) {
+  .kh-x-embed {
+    margin: 22px 0;
+  }
+}
