@@ -1,17 +1,17 @@
 import { notFound } from "next/navigation";
 import SiteFooter from "../../../components/SiteFooter";
 import ArticleReactions from "../../../components/ArticleReactions";
+import ArticleComments from "../../../components/ArticleComments";
 import PublishedTime from "../../../components/PublishedTime";
 import ArticleBackLink from "../../../components/ArticleBackLink";
+
 import {
   getEnglishArticle,
   getEnglishArticles,
 } from "../../../../lib/englishApi";
 
-
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-
   const story = await getEnglishArticle(slug);
 
   if (!story) {
@@ -26,17 +26,20 @@ export async function generateMetadata({ params }) {
     story.thumbnail ||
     "https://khulaasaa-english.vercel.app/logo.png";
 
-  const url = `https://www.khulaasaa.com/en/post/${story.id}`;
+  const url =
+    `https://www.khulaasaa.com/en/post/${story.id}`;
 
   return {
     title: story.title,
-    description: story.summary || "Khulaasaa English",
+    description:
+      story.summary || "Khulaasaa English",
     alternates: {
       canonical: url,
     },
     openGraph: {
       title: story.title,
-      description: story.summary || "Khulaasaa English",
+      description:
+        story.summary || "Khulaasaa English",
       url,
       siteName: "Khulaasaa English",
       type: "article",
@@ -52,11 +55,13 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
       title: story.title,
-      description: story.summary || "Khulaasaa English",
+      description:
+        story.summary || "Khulaasaa English",
       images: [image],
     },
   };
 }
+
 function StoryVisual({ story }) {
   if (story.image) {
     return (
@@ -71,7 +76,6 @@ function StoryVisual({ story }) {
   return (
     <div className="article-cover-placeholder">
       <span className="article-cover-k">K.</span>
-
       <span className="article-cover-category">
         {story.categories?.[0]?.name || "News"}
       </span>
@@ -88,7 +92,7 @@ export default async function ArticlePage({ params }) {
     notFound();
   }
 
-  const allArticles = await getEnglishArticles(12);
+  const allArticles = await getEnglishArticles(20);
 
   const primaryCategory =
     story.categories?.[0]?.name || "News";
@@ -110,58 +114,59 @@ export default async function ArticlePage({ params }) {
         <div className="container article-container">
 
           <header className="article-site-header article-mobile-header">
+            <div className="home-mobile-topbar">
 
-  <div className="home-mobile-topbar">
+              <button
+                type="button"
+                className="home-mobile-dim"
+                aria-label="Toggle dim mode"
+              >
+                ◐
+              </button>
 
-    <button
-      type="button"
-      className="home-mobile-dim"
-      aria-label="Toggle dim mode"
-    >
-      ◐
-    </button>
+              <a
+                href="/en"
+                className="home-mobile-logo-link"
+                aria-label="Khulaasaa English home"
+              >
+                <img
+                  src="https://khulaasaa-english.vercel.app/logo.png"
+                  alt="Khulaasaa"
+                  className="home-mobile-logo"
+                />
+              </a>
 
-    <a
-      href="/en"
-      className="home-mobile-logo-link"
-      aria-label="Khulaasaa English home"
-    >
-      <img
-        src="https://khulaasaa-english.vercel.app/logo.png"
-        alt="Khulaasaa"
-        className="home-mobile-logo"
-      />
-    </a>
+              <details className="home-mobile-sections">
+                <summary aria-label="Open sections">
+                  ☰
+                </summary>
 
-    <details className="home-mobile-sections">
-      <summary aria-label="Open sections">☰</summary>
+                <nav>
+                  <a href="/en">Home</a>
+                  <a href="/en/latest-news">Latest News</a>
+                  <a href="/en/world">World News</a>
+                  <a href="/en/reports">Reports</a>
+                  <a href="/en/business">Business</a>
+                  <a href="/en/sports">Sports</a>
+                  <a href="/en/local">Local</a>
+                  <a href="/en/gallery">Gallery</a>
 
-      <nav>
-        <a href="/en">Home</a>
-        <a href="/en/latest-news">Latest News</a>
-        <a href="/en/world">World News</a>
-        <a href="/en/reports">Reports</a>
-        <a href="/en/business">Business</a>
-        <a href="/en/sports">Sports</a>
-        <a href="/en/local">Local</a>
-        <a href="/en/gallery">Gallery</a>
+                  <a
+                    href="https://www.khulaasaa.com/"
+                    className="home-mobile-dhivehi"
+                  >
+                    Dhivehi edition ↗
+                  </a>
+                </nav>
+              </details>
 
-        <a
-          href="https://www.khulaasaa.com/"
-          className="home-mobile-dhivehi"
-        >
-          Dhivehi edition ↗
-        </a>
-      </nav>
-    </details>
-
-  </div>
-
-</header>
+            </div>
+          </header>
 
           <ArticleBackLink />
 
           <article className="article-main">
+
             <div className="article-heading">
               <span className="eyebrow">
                 {primaryCategory}
@@ -177,10 +182,10 @@ export default async function ArticlePage({ params }) {
 
               <div className="article-meta">
                 <span>
-                  By <strong>{story.author || "Khulaasaa"}</strong>
+                  By {story.author || "Khulaasaa"}
                 </span>
 
-                <span className="article-meta-dot" />
+                <span aria-hidden="true">•</span>
 
                 <PublishedTime
                   publishedAt={story.published_at}
@@ -206,52 +211,12 @@ export default async function ArticlePage({ params }) {
             />
 
             <section className="article-engagement">
-              <ArticleReactions />
+              <ArticleReactions articleId={story.id} />
 
-              <div className="article-comments">
-                <div className="comments-heading">
-                  <h2>Comments</h2>
-                  <span>
-                    {story.comments?.length || 0} comments
-                  </span>
-                </div>
-
-                <form className="comment-form">
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    aria-label="Your name"
-                  />
-
-                  <textarea
-                    placeholder="Write a comment..."
-                    aria-label="Write a comment"
-                    rows="4"
-                  />
-
-                  <button type="submit">
-                    Post comment
-                  </button>
-                </form>
-
-                {story.comments?.length > 0 ? (
-                  <div className="published-comments">
-                    {story.comments.map((comment) => (
-                      <article
-                        className="published-comment"
-                        key={comment.id}
-                      >
-                        <strong>{comment.name}</strong>
-                        <p>{comment.body}</p>
-                      </article>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="comments-empty">
-                    Be the first to comment on this story.
-                  </div>
-                )}
-              </div>
+              <ArticleComments
+                articleId={story.id}
+                initialComments={story.comments || []}
+              />
             </section>
 
             {related.length > 0 && (
@@ -273,7 +238,10 @@ export default async function ArticlePage({ params }) {
                         {item.image ? (
                           <img
                             src={item.image}
-                            alt={item.title}
+                            alt={
+                              item.short_title ||
+                              item.title
+                            }
                           />
                         ) : (
                           <span>K.</span>
@@ -285,10 +253,15 @@ export default async function ArticlePage({ params }) {
                           {item.categories?.[0]?.name || "News"}
                         </span>
 
-                        <h3>{item.title}</h3>
+                        <h3>
+                          {item.short_title ||
+                            item.title}
+                        </h3>
 
                         <PublishedTime
-                          publishedAt={item.published_at}
+                          publishedAt={
+                            item.published_at
+                          }
                         />
                       </div>
                     </a>
@@ -296,6 +269,7 @@ export default async function ArticlePage({ params }) {
                 </div>
               </section>
             )}
+
           </article>
         </div>
       </main>

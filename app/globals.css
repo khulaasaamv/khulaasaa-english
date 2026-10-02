@@ -8010,3 +8010,274 @@ h6,
     font-size: 12px;
   }
 }
+/* Comment submission feedback */
+
+.comment-success {
+  margin: 16px 0 22px;
+  padding: 18px 20px;
+  border: 1px solid #c9dfd1;
+  border-radius: 8px;
+  background: #f5faf7;
+}
+
+.comment-success strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #17643a;
+  font-size: 16px;
+}
+
+.comment-success p {
+  margin: 0;
+  color: #4c6255;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.comment-error {
+  margin: 4px 0 12px;
+  color: #b42318;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.comment-form button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+@media (max-width: 760px) {
+  .comment-success {
+    padding: 15px 16px;
+  }
+
+  .comment-success strong {
+    font-size: 15px;
+  }
+
+  .comment-success p {
+    font-size: 13px;
+  }
+}
+/* =========================================================
+   KHULAASAA MODERN COMMENTS
+   ========================================================= */
+
+.article-comments {
+  margin-top: 34px;
+  padding: 28px;
+  border: 1px solid #e6e1d8;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.comments-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #ece8e1;
+}
+
+.comments-heading h2 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.comments-heading span {
+  color: #8a8277;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.comment-form {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  border: 1px solid #ddd7cd;
+  border-radius: 10px;
+  background: #faf9f7;
+  color: #111;
+  font: inherit;
+  outline: none;
+  transition:
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background .18s ease;
+}
+
+.comment-form input {
+  height: 52px;
+  padding: 0 16px;
+}
+
+.comment-form textarea {
+  min-height: 132px;
+  padding: 15px 16px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.comment-form input::placeholder,
+.comment-form textarea::placeholder {
+  color: #9a948b;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus {
+  border-color: #b87812;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(184, 120, 18, 0.10);
+}
+
+.comment-form button {
+  width: fit-content;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 9px;
+  background: #111;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    transform .16s ease,
+    background .16s ease;
+}
+
+.comment-form button:hover {
+  background: #b87812;
+  transform: translateY(-1px);
+}
+
+.comment-form button:disabled {
+  opacity: .6;
+  cursor: wait;
+  transform: none;
+}
+
+.published-comments {
+  display: grid;
+  gap: 12px;
+}
+
+.published-comment {
+  position: relative;
+  padding: 18px 18px 18px 20px;
+  border: 1px solid #e9e4dc;
+  border-radius: 11px;
+  background: #fcfbf9;
+}
+
+.published-comment::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 3px;
+  border-radius: 4px;
+  background: #b87812;
+}
+
+.published-comment strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #111;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.published-comment p {
+  margin: 0;
+  color: #3f3a35;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.comments-empty {
+  padding: 18px 0 2px;
+  color: #8a8277;
+  font-size: 14px;
+}
+
+.comment-success {
+  margin: 0 0 24px;
+  padding: 17px 18px;
+  border: 1px solid #cfe2d5;
+  border-radius: 10px;
+  background: #f4faf6;
+}
+
+.comment-success strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #17643a;
+  font-size: 15px;
+}
+
+.comment-success p {
+  margin: 0;
+  color: #52665a;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.comment-error {
+  color: #b42318;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+@media (max-width: 760px) {
+  .article-comments {
+    margin-top: 28px;
+    padding: 20px 16px;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .comments-heading {
+    margin-bottom: 17px;
+  }
+
+  .comments-heading h2 {
+    font-size: 24px;
+  }
+
+  .comment-form input {
+    height: 48px;
+  }
+
+  .comment-form textarea {
+    min-height: 118px;
+  }
+
+  .comment-form button {
+    width: 100%;
+  }
+
+  .published-comment {
+    padding: 16px 15px 16px 18px;
+  }
+
+  .published-comment strong {
+    font-size: 14px;
+  }
+
+  .published-comment p {
+    font-size: 14px;
+  }
+}
